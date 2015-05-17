@@ -17,7 +17,7 @@ oApplication.loadViews = function()
 	// app.addPage(page1).addPage(page2);
 	// app.placeAt("content");
 	this.loadView("dashboard");
-	this.loadView("map");
+	//this.loadView("map");
 	this.loadView("water-supplier");
 	this.loadView("water-user");
 }
@@ -36,7 +36,8 @@ oApplication.loadView = function(sViewName)
 	}
 }
 sap.ui.localResources("sapui5-mobile"); // setting views folder
-
+//Loading a google maps library
+//sap.ui.getCore().loadLibrary("openui5.googlemaps","openui5/googlemaps/");
 // Loading a main application view - container for all other views
 sap.ui.view({
 	id : "application",

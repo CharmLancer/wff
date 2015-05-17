@@ -16,7 +16,9 @@ sap.ui.jsview("sapui5-mobile.login", {
 		var lblUserName= new sap.m.Label({ text : "User Name" });  
 		var txtUserName = new sap.m.Input({ id: "txtUserName" });  
 		var lblPassword= new sap.m.Label({ text : "Password" });  
-		var txtPassword = new sap.m.Input({ id: "txtPassword" });
+		var txtPassword = new sap.m.Input({ id: "txtPassword",
+			type:"Password",
+			placeholder:"Enter password ..." });
 		var button = new sap.m.Button({  
 		                              text: "Sign In",  
 		                              press: function(){ 
@@ -24,8 +26,12 @@ sap.ui.jsview("sapui5-mobile.login", {
 		                            	  //sap.ui.getCore().byId('txtUserName').setEnabled(false);
 		                            	  //sap.ui.getCore().byId('txtPassword').setEnabled(false);
 		                            	  //sap.ui.getCore().byId('myapp').to("dashboard");
-		                            	  oApplication.loadViews();  
-		                                  oApplication.app.to("dashboard");  
+		                            	  if(txtUserName.getValue()=="admin"){
+		                            		  if(txtPassword.getValue()=="admin"){
+		                            			  oApplication.loadViews();  
+				                                  oApplication.app.to("dashboard");	  
+		                            		  }
+		                            	  }
 		                              }  
 		                        }) ; 
 		 var vbox = new sap.m.VBox({

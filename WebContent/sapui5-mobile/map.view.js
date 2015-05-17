@@ -19,10 +19,6 @@ sap.ui.jsview("sapui5-mobile.map", {
 	 * @memberOf sapui5-mobile.map
 	 */
 	createContent : function(oController) {
-		// Loading a google maps library
-		sap.ui.getCore().loadLibrary("openui5.googlemaps",
-				"openui5/googlemaps/");
-
 		jQuery.sap.require("sap.ui.model.json.JSONModel");
 		var oModel = new sap.ui.model.json.JSONModel({
 			longitude : 8,
@@ -32,7 +28,6 @@ sap.ui.jsview("sapui5-mobile.map", {
 		sap.ui.getCore().setModel(oModel);
 
 		// PART 2: instantiate Control and place it onto the page
-
 		var myMap = new openui5.googlemaps.Map({
 			lng : "{/longitude}",
 			lat : "{/latitude}",
