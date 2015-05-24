@@ -17,7 +17,9 @@ oApplication.loadViews = function()
 	// app.addPage(page1).addPage(page2);
 	// app.placeAt("content");
 	this.loadView("dashboard");
-	//this.loadView("map");
+	this.loadView("registration");
+	this.loadView("weather");
+	this.loadView("weather-details");
 	this.loadView("water-supplier");
 	this.loadView("water-user");
 }
@@ -26,7 +28,7 @@ oApplication.loadView = function(sViewName)
 // and assigning it to application
 {
 	if (typeof this.views[sViewName] == "undefined") {
-		var sViewFullName = "sapui5-mobile." + sViewName;
+		var sViewFullName = "view." + sViewName;
 		this.views[sViewName] = new sap.ui.view({
 			id : sViewName,
 			viewName : sViewFullName,
@@ -35,12 +37,12 @@ oApplication.loadView = function(sViewName)
 		this.app.addPage(this.views[sViewName]);
 	}
 }
-sap.ui.localResources("sapui5-mobile"); // setting views folder
+sap.ui.localResources("view"); // setting views folder
 //Loading a google maps library
 //sap.ui.getCore().loadLibrary("openui5.googlemaps","openui5/googlemaps/");
 // Loading a main application view - container for all other views
 sap.ui.view({
 	id : "application",
-	viewName : "sapui5-mobile.application",
+	viewName : "view.application",
 	type : sap.ui.core.mvc.ViewType.JS
 }).placeAt("content");

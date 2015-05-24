@@ -1,0 +1,25 @@
+{
+	"status":{
+		"http_code":200
+	},
+	"areas":[
+		{
+		"name" : "Yangon",
+		"temperature" : "26C",
+		"latitude":"1",
+		"longitude":"1"
+		},
+		{
+		"name":"Mandalay",
+		"temperature" : "30C",
+		"latitude":"2",
+		"longitude":"2"
+		},
+		{
+		"name":"Bago",
+		"temperature" : "28C",
+		"latitude":"3",
+		"longitude":"3"
+		}
+	]
+}
