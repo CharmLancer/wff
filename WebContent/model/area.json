@@ -20,6 +20,12 @@
 		"temperature" : "28C",
 		"latitude":"3",
 		"longitude":"3"
+		},
+		{
+		"name":"Magway",
+		"temperature" : "28C",
+		"latitude":"3",
+		"longitude":"3"
 		}
 	]
 }

@@ -21,12 +21,12 @@ sap.ui.jsview("view.weather-details", {
 			},
 			content : [
 				new sap.ui.layout.form.SimpleForm({ 
-					title: "{name}",
+					title: "{data>name}",
 					content: [
 						new sap.m.Label({text: "Latitude"}),
-						new sap.m.Text({text: "{latitude}"}),
+						new sap.m.Text({text: "{data>latitude}"}),
 						new sap.m.Label({text: "Longitude"}),
-						new sap.m.Text({text: "{longitude}"})
+						new sap.m.Text({text: "{data>longitude}"})
 					]
 				})
 			]
