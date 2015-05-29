@@ -23,15 +23,13 @@ sap.ui.jsview("sapui5-mobile.login", {
 		                              text: "Sign In",  
 		                              press: function(){ 
 		                            	  // Create a function as a method of controller  
-		                            	  //sap.ui.getCore().byId('txtUserName').setEnabled(false);
-		                            	  //sap.ui.getCore().byId('txtPassword').setEnabled(false);
-		                            	  //sap.ui.getCore().byId('myapp').to("dashboard");
 		                            	  if(txtUserName.getValue()=="admin"){
 		                            		  if(txtPassword.getValue()=="admin"){
 		                            			  oApplication.loadViews();  
 				                                  oApplication.app.to("dashboard");	  
 		                            		  }
 		                            	  }
+		                            	  
 		                              }  
 		                        }) ; 
 		 var vbox = new sap.m.VBox({
