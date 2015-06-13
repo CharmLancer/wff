@@ -7,9 +7,16 @@ sap.ui.controller("view.water-supplier", {
     * 
     * @memberOf sapui5-mobile.water-supplier
     */
-   // onInit: function() {
-   //
-   // },
+   onInit : function() {
+      var myControl = new controls.Square({
+         text : "Hello",
+         size : "100px"
+      });
+      var mapView = sap.ui.getCore().byId('id_map_viewer');
+      // mapView.addContent(myControl); // Panel Layout
+      mapView.createRow(myControl); // Matrix Layout
+
+   },
    /**
     * Similar to onAfterRendering, but this hook is invoked before the
     * controller's View is re-rendered (NOT before the first rendering! onInit()
@@ -28,12 +35,7 @@ sap.ui.controller("view.water-supplier", {
     * @memberOf sapui5-mobile.water-supplier
     */
    onAfterRendering : function() {
-      var myControl = new controls.Square({
-         text : "Hello",
-         size : "100px"
-      });
-      var mapView = sap.ui.getCore().byId('id_map_viewer');
-      mapView.addItem(myControl);
+
    },
 
 /**

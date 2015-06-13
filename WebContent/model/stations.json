@@ -2,27 +2,27 @@
 	"status":{
 		"http_code":200
 	},
-	"areas":[
+	"stations":[
 		{
-		"name" : "Yangon",
+		"name" : "ရန်ကုန်တိုင်း",
 		"temperature" : "26C",
 		"latitude":"1",
 		"longitude":"1"
 		},
 		{
-		"name":"Mandalay",
+		"name":"မကွေးတိုင်း",
 		"temperature" : "30C",
 		"latitude":"2",
 		"longitude":"2"
 		},
 		{
-		"name":"Bago",
+		"name":"ပဲခူးတိုင်း",
 		"temperature" : "28C",
 		"latitude":"3",
 		"longitude":"3"
 		},
 		{
-		"name":"Magway",
+		"name":"တောင်ကြီး",
 		"temperature" : "28C",
 		"latitude":"3",
 		"longitude":"3"

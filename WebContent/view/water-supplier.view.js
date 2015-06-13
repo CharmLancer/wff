@@ -35,8 +35,12 @@ sap.ui.jsview("view.water-supplier", {
          }) ]
       });
 
-      var mapEditor = new sap.m.VBox("id_map_viewer", {
-         items : [ overflowToolbar ]
+      // var mapEditor = new sap.ui.commons.Panel("id_map_viewer", {
+      // width : "100%"
+      // });
+      var mapEditor = new sap.ui.commons.layout.MatrixLayout({
+         id : "id_map_viewer",
+         layoutFixed : false
       });
 
       return new sap.m.Page('id_map_page', {
@@ -47,6 +51,10 @@ sap.ui.jsview("view.water-supplier", {
             oApplication.app.back();
          },
          content : [ mapEditor ],
+         subHeader : new sap.m.Bar({
+            id : 'id_water_supplier_header',
+            contentRight : [ overflowToolbar ]
+         }),
          footer : new sap.m.Bar({
             id : 'water-supplier-footer',
             contentLeft : [ new sap.m.Button({

@@ -1,3 +1,5 @@
+@CHARSET "ISO-8859-1";
+<style>   
 /* required styles */
 
 .leaflet-map-pane,
@@ -476,3 +478,4 @@
 	background: #fff;
 	border: 1px solid #666;
 	}
+</style>
