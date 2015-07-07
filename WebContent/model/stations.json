@@ -3,6 +3,55 @@
 		"http_code":200
 	},
 	"stations":[
+      {
+      "name" : "ကချင်ပြည်နယ်",
+      "temperature" : "26C",
+      "latitude":16.843397,
+      "longitude":96.160609,
+      "zoom": 14
+      },
+      {
+         "name" : "ကယားပြည်နယ်",
+         "temperature" : "26C",
+         "latitude":16.843397,
+         "longitude":96.160609,
+         "zoom": 14
+         },
+         {
+            "name" : "ကရင်ပြည်နယ်",
+            "temperature" : "26C",
+            "latitude":16.843397,
+            "longitude":96.160609,
+            "zoom": 14
+            },
+            {
+               "name" : "ချင်းပြည်နယ်‌",
+               "temperature" : "26C",
+               "latitude":16.843397,
+               "longitude":96.160609,
+               "zoom": 14
+               },
+               {
+                  "name" : "မွန်ပြည်နယ်",
+                  "temperature" : "26C",
+                  "latitude":16.843397,
+                  "longitude":96.160609,
+                  "zoom": 14
+                  },
+                  {
+                     "name" : "ရခိုင်ပြည်နယ်",
+                     "temperature" : "26C",
+                     "latitude":16.843397,
+                     "longitude":96.160609,
+                     "zoom": 14
+                     },
+                     {
+                        "name" : "ရှမ်းပြည်နယ်",
+                        "temperature" : "26C",
+                        "latitude":16.843397,
+                        "longitude":96.160609,
+                        "zoom": 14
+                        },
 		{
 		"name" : "ရန်ကုန်တိုင်း",
 		"temperature" : "26C",
