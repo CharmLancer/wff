@@ -3,13 +3,13 @@ package com.wff.config;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-	 @Bean
+	 	@Bean
 	    public BasicDataSource dataSource() throws URISyntaxException {
 	        URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
