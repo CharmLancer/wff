@@ -8,7 +8,12 @@ sap.ui.controller("view.weather-details", {
     * @memberOf sapui5-mobile.water-user
     */
    onInit : function() {
-      // this.getView().setModel(sap.ui.getCore().getModel('myStations'));
+      var mapPage = sap.ui.getCore().byId('id_weather_details_page');
+      var myMap = new openui5.googlemaps.Map({
+         lng : "{longitude}",
+         lat : "{latitude}",
+         zoom : "{zoom}"
+      }).placeAt(mapPage);
    },
 
 /**

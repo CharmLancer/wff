@@ -31,7 +31,6 @@ oApplication.loadViews = function()
    this.loadView("weather-details", "detail");
    this.loadView("water-supplier", "master");
    this.loadView("water-user", "master");
-
    // views["login"].placeAt("content");
 }
 oApplication.loadView = function(sViewName, type)
@@ -58,24 +57,22 @@ oApplication.loadView = function(sViewName, type)
       }
    }
 }
+
 sap.ui.localResources("view"); // setting views folder
 jQuery.sap.registerModulePath("lib.ext.leaflet", "js/lib/ext/leaflet");
 jQuery.sap.registerModulePath("controls", "js/controls");
 
-// 3rd
-// party
-// libs,
-// i.e.
-// leaflet.js
-
-// custom
-// controls
-
 // Loading a google maps library
-// sap.ui.getCore().loadLibrary("openui5.googlemaps","openui5/googlemaps/");
-// var myRootPath = jQuery.sap.getModulePath("wff");
-// sap.ui.getCore().loadLibrary("controls.square.Square",
-// [myRootPath,"controls/square/"].join("/"));
+sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
+
+jQuery.sap.require("sap.ui.model.json.JSONModel");
+var oModel = new sap.ui.model.json.JSONModel({
+   longitude : 8,
+   latitude : 49,
+   zoom : 6
+});
+sap.ui.getCore().setModel(oModel);
+
 // Loading a main application view - container for all other views
 sap.ui.view({
    id : "application",

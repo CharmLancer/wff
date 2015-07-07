@@ -19,37 +19,23 @@ sap.ui.jsview("view.weather", {
     * @memberOf sapui5-mobile.water-user
     */
    createContent : function(oController) {
-
-      var list = new sap.m.List({
+      var oModel = new sap.ui.model.json.JSONModel();
+      oModel.loadData('./model/stations.json');
+      // http://scn.sap.com/thread/3415475
+      var itemTemplate = new sap.m.StandardListItem({
+         title : "{name}",
+         icon : "sap-icon://temperature",
+         description : "{temperature}",
+         iconInset : false,
+         type : sap.m.ListType.Navigation,
+         // press : oController.selectedItem
+         tap : [ oController.selectedItem, oController ]
+      });
+      var list = new sap.m.List("Stations", {
          headerText : "Stations"
       });
-
-      // bind the List items to the data collection
-      list.bindItems({
-         path : "myStations>/stations",
-         sorter : new sap.ui.model.Sorter("Station Name"),
-         template : new sap.m.StandardListItem({
-            title : "{myStations>name}",
-            description : "{myStations>temperature}",
-            type : sap.m.ListType.Navigation,
-            press : function(evt) {
-               var oBindingContext = evt.getSource().getBindingContext(); // evt.getSource()
-               // is
-               // the
-               // ListItem
-               var page2 = sap.ui.getCore().byId("id_weather_details_page");
-               // page2.bindElement(oBindingContext.getPath());
-               page2.setBindingContext(oBindingContext); // make
-               // sure
-               // the detail
-               // page has
-               // the correct
-               // data
-               // context
-               oApplication.app.to("weather-details");
-            }
-         })
-      });
+      list.setModel(oModel);
+      list.bindAggregation("items", "/stations", itemTemplate);
 
       // var oTable = new sap.ui.table.Table({editable:true});
       // oTable.addColumn(new sap.ui.table.Column({
@@ -63,16 +49,16 @@ sap.ui.jsview("view.weather", {
       // }));
       // oTable.setModel(oModel);
 
-      return new sap.m.Page({
+      var page = new sap.m.Page({
          title : "Weather",
          showNavButton : true,
          navButtonPress : function(oControlEvent) {
             oApplication.app.back();
          },
-         content : [ list
-
-         ]
+         content : [ list ]
       });
+
+      return page;
    }
 
 });

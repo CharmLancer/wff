@@ -23,10 +23,10 @@ public class LoginController
     }
 
     @ResponseBody
-    @RequestMapping(value = "/login", params = {"name"})
-    public String helloName(@RequestParam("name") String name)
+    @RequestMapping(value = "/login", params = {"name","password"})
+    public String helloName(@RequestParam("name") String name, @RequestParam("password") String password)
     {	
-    	return Boolean.toString(logInService.checkLogin(name, "-"));
+    	return Boolean.toString(logInService.checkLogin(name, password));
         
     }
 }

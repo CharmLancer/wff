@@ -19,22 +19,23 @@ sap.ui.jsview("view.weather-details", {
     * @memberOf sapui5-mobile.water-user
     */
    createContent : function(oController) {
-      var form = new sap.ui.layout.form.SimpleForm({
+      var form = new sap.ui.layout.form.SimpleForm("id_weather_details_form", {
          title : "{name}",
          content : [ new sap.m.Label({
             text : "Latitude"
          }), new sap.m.Text({
-            text : "{myStations>latitude}"
+            text : "{latitude}"
          }), new sap.m.Label({
             text : "Longitude"
          }), new sap.m.Text({
-            text : "{myStations>longitude}"
+            text : "{longitude}"
          }) ]
       });
 
       var page2 = new sap.m.Page("id_weather_details_page", {
          title : "Detail Page",
          showNavButton : true,
+         enableScrolling : false,
          navButtonPress : function() {
             oApplication.app.back();
          },

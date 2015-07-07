@@ -6,26 +6,31 @@
 		{
 		"name" : "ရန်ကုန်တိုင်း",
 		"temperature" : "26C",
-		"latitude":"1",
-		"longitude":"1"
+		"latitude":16.843397,
+		"longitude":96.160609,
+		"zoom": 14
 		},
 		{
 		"name":"မကွေးတိုင်း",
 		"temperature" : "30C",
-		"latitude":"2",
-		"longitude":"2"
+		"latitude":44.352905,
+      "longitude":-72.718074,
+      "zoom": 14
 		},
+		
 		{
 		"name":"ပဲခူးတိုင်း",
 		"temperature" : "28C",
-		"latitude":"3",
-		"longitude":"3"
+		"latitude":17.315901,
+      "longitude":96.466171,
+      "zoom": 14
 		},
 		{
 		"name":"တောင်ကြီး",
 		"temperature" : "28C",
-		"latitude":"3",
-		"longitude":"3"
+		"latitude":20.786637,
+      "longitude": 97.036060,
+      "zoom": 14
 		}
 	]
 }

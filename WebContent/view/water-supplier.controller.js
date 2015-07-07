@@ -8,14 +8,12 @@ sap.ui.controller("view.water-supplier", {
     * @memberOf sapui5-mobile.water-supplier
     */
    onInit : function() {
-      var myControl = new controls.Square({
-         text : "Hello",
-         size : "100px"
-      });
-      var mapView = sap.ui.getCore().byId('id_map_viewer');
-      // mapView.addContent(myControl); // Panel Layout
-      mapView.createRow(myControl); // Matrix Layout
-
+      var mapPage = sap.ui.getCore().byId('id_map_page');
+      var myMap = new openui5.googlemaps.Map({
+         lng : "{/longitude}",
+         lat : "{/latitude}",
+         zoom : "{/zoom}"
+      }).placeAt(mapPage);
    },
    /**
     * Similar to onAfterRendering, but this hook is invoked before the

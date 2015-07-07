@@ -1,5 +1,3 @@
-jQuery.sap.require("controls.Square");
-jQuery.sap.require("lib.ext.leaflet.leaflet");
 sap.ui.jsview("view.water-supplier", {
 
    /**
