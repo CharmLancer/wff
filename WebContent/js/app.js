@@ -28,9 +28,10 @@ oApplication.loadViews = function()
    this.loadView("dashboard", "master");
    this.loadView("registration", "master");
    this.loadView("weather", "master");
+   this.loadView("water-user", "master");
    this.loadView("weather-details", "detail");
    this.loadView("water-supplier", "master");
-   this.loadView("water-user", "master");
+
    // views["login"].placeAt("content");
 }
 oApplication.loadView = function(sViewName, type)

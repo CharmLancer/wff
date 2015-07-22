@@ -3,20 +3,6 @@ jQuery.sap.require("lib.ext.leaflet.leaflet");
 jQuery.sap.includeStyleSheet("js/lib/ext/leaflet/leaflet.css");
 jQuery.sap.includeStyleSheet("js/controls/Square.css");
 sap.ui.controller("view.registration", {
-
-   _addInputItem : function(id, label) {
-      var mapView = sap.ui.getCore().byId('id_map_registration');
-
-      var oLabel = new sap.m.Label({
-         text : label
-      });
-      var oText = new sap.m.Input({
-         id : id,
-         placeholder : "Enter " + label
-      });
-      mapView.addItem(oLabel);
-      mapView.addItem(oText);
-   },
    /**
     * Called when a controller is instantiated and its View controls (if
     * available) are already created. Can be used to modify the View before it
@@ -25,7 +11,20 @@ sap.ui.controller("view.registration", {
     * @memberOf sapui5-mobile.water-user
     */
    onInit : function() {
-
+      // var util = openui5.googlemaps.MapUtils;
+      // /* get my location */
+      // var onMyLocation = function() {
+      // util.currentPosition().then(getLocationCallback).then(
+      // util.geocodePosition).done(function(sLocation) {
+      // alert(sLocation.lng + "," + sLocation.lat);
+      // });
+      // };
+      var registrationPage = sap.ui.getCore().byId('id_registration_page');
+      var myMap = new openui5.googlemaps.Map({
+         lng : 96.160609,
+         lat : 16.843397,
+         zoom : 14
+      }).placeAt(registrationPage);
    },
 
    /**
@@ -46,16 +45,7 @@ sap.ui.controller("view.registration", {
     * @memberOf sapui5-mobile.water-user
     */
    onAfterRendering : function() {
-      this._addInputItem("id_station_name", "Station Names");
-      this._addInputItem("id_latitude", "Latitude");
-      this._addInputItem("id_longitude", "Longitude");
 
-      var btnSaveStation = new sap.m.Button({
-         text : "Save Station",
-         width : "100%"
-      });
-      var mapView = sap.ui.getCore().byId('id_map_registration');
-      mapView.addItem(btnSaveStation);
    },
 /**
  * Called when the Controller is destroyed. Use this one to free resources and

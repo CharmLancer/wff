@@ -25,9 +25,37 @@ sap.ui.jsview("view.registration", {
          justifyContent : "Center",
       });
 
-      return new sap.m.Page({
+      addInputItem = function(id, label) {
+         var mapView = sap.ui.getCore().byId('id_map_registration');
+
+         var oLabel = new sap.m.Label({
+            text : label
+         });
+         var oText = new sap.m.Input({
+            id : id,
+            placeholder : "Enter " + label
+         });
+         mapView.addItem(oLabel);
+         mapView.addItem(oText);
+      };
+
+      addInputItem("id_station_name", "Station Names");
+      addInputItem("id_latitude", "Latitude");
+      addInputItem("id_longitude", "Longitude");
+      addInputItem("id_datetime", "Date and Time");
+      addInputItem("id_temperature", "Temperature");
+      addInputItem("id_water_level", "Water Level");
+
+      var btnSaveStation = new sap.m.Button({
+         text : "Save Station",
+         width : "100%"
+      });
+      map.addItem(btnSaveStation);
+
+      return new sap.m.Page("id_registration_page", {
          title : "Register Station",
          showNavButton : true,
+         enableScrolling : false,
          navButtonPress : function(oControlEvent) {
             oApplication.app.back();
          },
