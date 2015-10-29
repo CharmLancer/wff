@@ -12,7 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jackson.version>2.4.2</jackson.version>
 		<log4j.version>2.0.2</log4j.version>
-		<spring.framework.version>4.0.6.RELEASE</spring.framework.version>
+		<spring.framework.version>4.1.6.RELEASE</spring.framework.version>
 	</properties>
 	<dependencies>
 		<!-- <dependency> <groupId>org.apache.storm</groupId> <artifactId>storm-core</artifactId> 
@@ -96,6 +96,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.framework.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.framework.version}</version>
 		</dependency>
@@ -105,9 +111,9 @@
 			<version>5.1.35</version>
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
+			<version>9.3-1103-jdbc41</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>

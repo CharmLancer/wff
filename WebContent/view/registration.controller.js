@@ -20,6 +20,7 @@ sap.ui.controller("view.registration", {
       // });
       // };
       var registrationPage = sap.ui.getCore().byId('id_registration_page');
+
       var myMap = new openui5.googlemaps.Map({
          lng : 96.160609,
          lat : 16.843397,

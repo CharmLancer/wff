@@ -19,7 +19,7 @@ public class Bootstrap implements WebApplicationInitializer
 
         AnnotationConfigWebApplicationContext rootContext =
                 new AnnotationConfigWebApplicationContext();
-        rootContext.register(RootContextConfiguration.class);
+        rootContext.register(RootContextConfiguration.class,AppConfig.class,DatabaseConfig.class);
         container.addListener(new ContextLoaderListener(rootContext));
 
         AnnotationConfigWebApplicationContext servletContext =
