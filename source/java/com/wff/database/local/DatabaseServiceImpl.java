@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 	Logger LOGGER = LoggerFactory.getLogger(DatabaseServiceImpl.class);
 
 	@Autowired
-	DataSource dataSource;
+	BasicDataSource dataSource;
 
 	protected JdbcTemplate jdbcTemplate;
 
