@@ -2,22 +2,18 @@ package test;
 
 import java.util.List;
 
-import junit.framework.Assert;
-
-import org.eclipse.jdt.internal.compiler.ast.AssertStatement;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import test.config.BaseTest;
-
 import com.wff.database.local.DatabaseService;
-import com.wff.model.AbstractModel;
 import com.wff.model.User;
+
+import junit.framework.Assert;
+import test.config.BaseTest;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DatabaseServiceImplTest extends BaseTest{
