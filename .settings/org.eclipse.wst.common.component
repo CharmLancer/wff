@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/resource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/test/resource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/source/test/java"/>
         <property name="java-output-path" value="/wff/build/classes"/>
         <property name="context-root" value="wff"/>
     </wb-module>

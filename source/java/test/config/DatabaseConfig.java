@@ -21,11 +21,11 @@ public class DatabaseConfig {
 	@Bean
 	public BasicDataSource basicDataSource() throws URISyntaxException {
 
-		URI dbUri = new URI(env.getProperty("DATABASE_URL"));
+		URI dbUri = new URI(env.getProperty("DATABASE_URL_LOCAL"));
 
-		String username = dbUri.getUserInfo().split(":")[0];
-		String password = dbUri.getUserInfo().split(":")[1];
-		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+		String username = env.getProperty("DATABASE_USER_LOCAL");//dbUri.getUserInfo().split(":")[0];
+		String password = env.getProperty("DATABASE_PASSWORD_LOCAL");//dbUri.getUserInfo().split(":")[1];
+		String dbUrl =env.getProperty("DATABASE_URL_LOCAL");// "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setUrl(dbUrl);

@@ -14,25 +14,23 @@ import org.springframework.stereotype.Service;
 
 import com.wff.model.User;
 
-
-@Service 
+@Service
 public class UserServiceImpl implements UserService {
 	Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-	
+
 	@Autowired
 	DataSource datasource;
-	
+
 	@Override
 	public boolean checkUser() {
-		//System.out.println(datasource.getPassword());
-		try (Connection con = datasource.getConnection()){
+		// System.out.println(datasource.getPassword());
+		try (Connection con = datasource.getConnection()) {
 			Statement statement = con.createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM "
-					+ "\"user\"");
-			while(rs.next()){
-				if(rs.getString("userName").equalsIgnoreCase("water") &&
-						rs.getString("userPassword").equalsIgnoreCase("-")){
-					System.out.println(rs.getString("userName")+rs.getString("userPassword"));
+			ResultSet rs = statement.executeQuery("SELECT * FROM " + "\"USERS\"");
+			while (rs.next()) {
+				if (rs.getString("USER_NAME").equalsIgnoreCase("admin")
+						&& rs.getString("USER_PASSWORD").equalsIgnoreCase("-")) {
+					System.out.println(rs.getString("USER_NAME") + rs.getString("USER_PASSWORD"));
 					return true;
 				}
 			}
@@ -43,31 +41,46 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			LOGGER.info("LOG IN FAILED");
 		}
-		
 		return false;
 	}
 
 	@Override
 	public User insertUser(User user) {
-		// TODO Auto-generated method stub
+		try (Connection con = datasource.getConnection()) {
+			
+		} catch (SQLException e) {
+
+		}
 		return null;
 	}
 
 	@Override
 	public User updateUser(User user) {
-		// TODO Auto-generated method stub
+		try (Connection con = datasource.getConnection()) {
+
+		} catch (SQLException e) {
+
+		}
 		return null;
 	}
 
 	@Override
 	public User deleteUser(User user) {
-		// TODO Auto-generated method stub
+		try (Connection con = datasource.getConnection()) {
+
+		} catch (SQLException e) {
+
+		}
 		return null;
 	}
 
 	@Override
 	public User getUser(User user) {
-		// TODO Auto-generated method stub
+		try (Connection con = datasource.getConnection()) {
+
+		} catch (SQLException e) {
+
+		}
 		return null;
 	}
 

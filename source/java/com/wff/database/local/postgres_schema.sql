@@ -1,6 +1,21 @@
 -- Table: "BIGTABLES"
-
 DROP TABLE "BIGTABLES";
+
+DROP TABLE "USERS";
+
+
+CREATE TABLE "USERS"
+(
+  "ROWID" serial NOT NULL,
+  "USER_NAME" character varying(255) NOT NULL,
+  "USER_PASSWORD" character varying(255) NOT NULL,
+  CONSTRAINT "USERS_pkey" PRIMARY KEY ("ROWID")
+)WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE "USERS"
+  OWNER TO postgres;
 
 CREATE TABLE "BIGTABLES"
 (
@@ -15,9 +30,14 @@ CREATE TABLE "BIGTABLES"
 WITH (
   OIDS=FALSE
 );
+  
 ALTER TABLE "BIGTABLES"
   OWNER TO postgres;
 
+INSERT INTO "USERS"(
+            "ROWID", "USER_NAME","USER_PASSWORD")
+    VALUES (DEFAULT, 'admin', '-');
+    
 INSERT INTO "BIGTABLES"(
             "ROWID", "INSTANCE","COLUMN", "TABLE", "VALUE", "USER_LABEL")
     VALUES (DEFAULT, '1', 'userName', 'User','admin', 'USER_ADMIN');
