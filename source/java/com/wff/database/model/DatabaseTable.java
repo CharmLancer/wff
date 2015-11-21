@@ -1,8 +1,24 @@
 package com.wff.database.model;
 
 public abstract class DatabaseTable {
-	private static final String BIG_TABLE_NAME="\"BIGTABLES\"";
-	public static String table(){
+	private static final String BIG_TABLE_NAME = "\"BIGTABLES\"";
+	private static final String TABLE1 = "\"Table1\"";
+	private static final String TABLE2 = "\"Table2\"";
+	private static final String TABLE3 = "\"Table3\"";
+
+	public static String bigTable() {
 		return BIG_TABLE_NAME;
+	}
+
+	public static String t1() {
+		return TABLE1;
+	}
+
+	public static String t2() {
+		return TABLE2;
+	}
+
+	public static String t3() {
+		return TABLE3;
 	}
 }

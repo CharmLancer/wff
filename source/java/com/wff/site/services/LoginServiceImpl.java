@@ -6,15 +6,16 @@ import org.springframework.stereotype.Service;
 import com.wff.dao.UserService;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Override
-	public boolean checkLogin(String userName, String password) {
-		//return (userName.equalsIgnoreCase("water") && password.equalsIgnoreCase("-"));
-		return userService.checkUser();
+	public boolean checkLogin(String userName, String userPassword) {
+		// return (userName.equalsIgnoreCase("water") &&
+		// password.equalsIgnoreCase("-"));
+		return userService.checkUser(userName, userPassword);
 	}
 
 }

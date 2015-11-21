@@ -9,17 +9,17 @@ import com.wff.database.model.FieldName;
 import com.wff.database.model.FieldType;
 
 public class User extends AbstractModel {
-	Logger LOGGER= LoggerFactory.getLogger(User.class);
-	
-	public DatabaseField userName = new DatabaseField("userName",
-			FieldType.STRING);
-	public DatabaseField userPassword = new DatabaseField("userPassword",
-			FieldType.STRING);
-	
-	public User(){
-		
-	}
+	Logger LOGGER = LoggerFactory.getLogger(User.class);
+	public DatabaseTable table;
+	public DatabaseField userName;
+	public DatabaseField userPassword;
 
+	public User() {
+		userName = new DatabaseField("userName", FieldType.STRING, this.getClass().getName());
+		userPassword = new DatabaseField("userPassword", FieldType.STRING, this.getClass().getName());
+		super.addModelFields(userName);
+		super.addModelFields(userPassword);
+	}
 
 	@Override
 	public String insert(String instance) {
@@ -52,64 +52,17 @@ public class User extends AbstractModel {
 		// And "COLUMN" ='userPassword'
 		// And "VALUE"='-') userPassword
 		// Where userName."INSTANCE"=userPassword."INSTANCE"
-		
-		prepareFromClause(select,userName, from);
-		if (userPassword.getFieldValue() != null
-				&& !userPassword.getFieldValue().isEmpty()) {	
-			select.append(userPassword.getFieldName() + "."
-					+ FieldName.VALUE.getValue() + " "
-					+ userPassword.getFieldName());
-			// From clause
-			from.append("(");
-			from.append("SELECT ");
-			from.append(FieldName.INSTANCE.getValue() + ","
-					+ FieldName.VALUE.getValue());
-			from.append(" FROM " + DatabaseTable.table());
-			from.append(" WHERE " + FieldName.TABLE.getValue() + "='"
-					+ userPassword.getTableName() + "'");
-			from.append(" AND " + FieldName.COLUMN.getValue() + "='"
-					+ userPassword.getFieldName() + "'");
-			from.append(" AND " + FieldName.VALUE.getValue() + "='"
-					+ userPassword.getFieldValue() + "'");
-			from.append(")");
-			from.append(userPassword.getFieldName());
-		}
-		where.append(userName.getFieldName() + "."
-				+ FieldName.INSTANCE.getValue() + "="
-				+ userPassword.getFieldName() + "."
-				+ FieldName.INSTANCE.getValue());
-		sql.append("SELECT " + select.toString() + " FROM " + from.toString() + " WHERE "+where.toString());
+
+		prepareFromClause(select, userName, from);
+		prepareFromClause(select, userPassword, from, true);
+
+		where.append(userName.getFieldName() + "." + FieldName.INSTANCE.getValue() + "=" + userPassword.getFieldName()
+				+ "." + FieldName.INSTANCE.getValue());
+
+		sql.append("SELECT " + select.toString() + " FROM " + from.toString()
+				+ (where.length() > 0 ? " WHERE " + where.toString() : ""));
 		LOGGER.info(sql.toString());
 		return sql.toString();
-	}
-
-
-	private void prepareFromClause(StringBuilder select, DatabaseField field,StringBuilder from) {
-		if (field.getFieldValue() != null
-				&& !field.getFieldValue().isEmpty()) {
-			select.append(field.getFieldName() + "."
-					+ FieldName.INSTANCE.getValue());
-			select.append(",");
-			select.append(field.getFieldName() + "."
-					+ FieldName.VALUE.getValue() + " "
-					+ field.getFieldName());
-			// From clause
-			from.append("(");
-			from.append("SELECT ");
-			from.append(FieldName.INSTANCE.getValue() + ","
-					+ FieldName.VALUE.getValue());
-			from.append(" FROM " + DatabaseTable.table());
-			from.append(" WHERE " + FieldName.TABLE.getValue() + "='"
-					+ field.getTableName() + "'");
-			from.append(" AND " + FieldName.COLUMN.getValue() + "='"
-					+ field.getFieldName() + "'");
-			from.append(" AND " + FieldName.VALUE.getValue() + "='"
-					+ field.getFieldValue() + "'");
-			from.append(")");
-			from.append(field.getFieldName());
-		}
-		select.append(select.toString().length()>0? "," : select.append(" "));
-		from.append(from.toString().length()>0? "," : from.append(" "));
 	}
 
 }

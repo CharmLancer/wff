@@ -1,11 +1,12 @@
 package test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wff.dao.UserService;
-import com.wff.database.model.DatabaseField;
 import com.wff.model.User;
 
 import test.config.BaseTest;
@@ -17,14 +18,20 @@ public class UserServiceImplTest extends BaseTest {
 
 	@Test
 	public void test() {
-
 		User user = new User();
-		user.userName.setFieldValue("admin", DatabaseField.table());
-		user.userPassword.setFieldValue("-", DatabaseField.table());
+		user.userName.setFieldValue("admin");
+		user.userPassword.setFieldValue("-");
+		// Test Insert
 		userService.insertUser(user);
-		user = userService.getUser(user);
-
-		Assert.assertTrue(userService.checkUser());
+		// Test select all
+		List<User> users = userService.getUser(user.userName, user.userPassword);
+		for (User result : users) {
+			Assert.assertTrue(result.userName.getFieldValue().equalsIgnoreCase("admin"));
+			Assert.assertTrue(result.userPassword.getFieldValue().equalsIgnoreCase("-"));
+		}
+		// Test select specific
+		Assert.assertTrue(userService.checkUser("admin", "-"));
+		Assert.assertFalse(userService.checkUser("admin", "a"));
 	}
 
 }

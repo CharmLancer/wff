@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.sql.DataSource;
-
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +29,10 @@ public class DatabaseServiceImpl implements DatabaseService {
 		try (Connection con = dataSource.getConnection()) {
 			LOGGER.info("INSERTING MODEL INTO DATABASE");
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String sqls[]=new String[model.getFields().size()];
+			String sqls[] = new String[model.getModelFields().size()];
 			String rowId = UUID.randomUUID().toString();
-			for(int i=0;i<model.getFields().size();i++){
-				sqls[i]=model.getFields().get(i).insert((rowId));
+			for (int i = 0; i < model.getModelFields().size(); i++) {
+				sqls[i] = model.getModelFields().get(i).insert((rowId));
 				LOGGER.warn(sqls[i]);
 			}
 			jdbcTemplate.batchUpdate(sqls);
@@ -49,9 +47,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 	public <M extends AbstractModel> boolean update(M model) {
 		try (Connection con = dataSource.getConnection()) {
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String sqls[]=new String[model.getFields().size()];
-			for(int i=0;i<model.getFields().size();i++){
-				sqls[i]=model.getFields().get(i).update();
+			String sqls[] = new String[model.getQueryFields().size()];
+			for (int i = 0; i < model.getQueryFields().size(); i++) {
+				sqls[i] = model.getQueryFields().get(i).update();
 				LOGGER.warn(sqls[i]);
 			}
 			jdbcTemplate.batchUpdate(sqls);
@@ -72,12 +70,13 @@ public class DatabaseServiceImpl implements DatabaseService {
 		List<M> models = new ArrayList();
 		try (Connection con = dataSource.getConnection()) {
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String sqls[]=new String[model.getFields().size()];
-			
-			LOGGER.info(model.getFields().get(0).select());
-			//jdbcTemplate.query(sqls[0], model.getFields().get(0));
-			models= jdbcTemplate.query(model.select(), model);
-			for(M m: models){
+			String sqls[] = new String[model.getQueryFields().size()];
+
+			LOGGER.info(model.getQueryFields().get(0).select());
+			LOGGER.info(model.select());
+			// jdbcTemplate.query(sqls[0], model.getFields().get(0));
+			models = jdbcTemplate.query(model.select(), model);
+			for (M m : models) {
 				LOGGER.info(m.toString());
 			}
 			return models;

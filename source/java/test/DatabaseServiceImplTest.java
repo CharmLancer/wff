@@ -16,7 +16,7 @@ import junit.framework.Assert;
 import test.config.BaseTest;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class DatabaseServiceImplTest extends BaseTest{
+public class DatabaseServiceImplTest extends BaseTest {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	DatabaseService databaseService;
@@ -24,26 +24,34 @@ public class DatabaseServiceImplTest extends BaseTest{
 	@Test
 	public void testAInsert() {
 		User user = new User();
-		user.build(user.userName.setFieldValue("Guest01", "User"),user.userPassword.setFieldValue("-", "User"));
+		user.build(user.userName.setFieldValue("Guest01"), user.userPassword.setFieldValue("-"));
 		// Inserting a user
 		databaseService.insert(user);
 	}
-	
+
 	@Test
-	public void testBSelect(){
+	public void testBSelect() {
 		User user = new User();
-		user.build(user.userName.setFieldValue("Guest", "User"),user.userPassword.setFieldValue("-", "User"));
+		user.build(user.userName.setFieldValue("Guest"), user.userPassword.setFieldValue("-"));
+		databaseService.insert(user);
 		// Selecting a user
 		List<User> users = databaseService.select(user);
-		for(User u : users){
-			logger.info(u.toString());
+		for (User u : users) {
+			logger.info("USER " + u.toString());
 			Assert.assertEquals(u.userName.getInstance().isEmpty(), false);
 		}
-		
-		user.build(user.userPassword.setFieldValue("-", "User"));
-		 users = databaseService.select(user);
-		Assert.assertEquals(users.size()>1, true);
-		
+		user.build(user.userPassword.setFieldValue("-"));
+		users = databaseService.select(user);
+		for (User result : users) {
+			Assert.assertTrue(result.userPassword.getFieldValue().equalsIgnoreCase("-"));
+		}
+
+		user.build(user.userName.setFieldValue("Guest"));
+		users = databaseService.select(user);
+		for (User result : users) {
+			Assert.assertTrue(result.userName.getFieldValue().equalsIgnoreCase("Guest"));
+		}
+
 	}
 
 }
