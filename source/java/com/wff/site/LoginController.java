@@ -10,22 +10,25 @@ import com.wff.site.services.LoginService;
 
 @Controller
 @RequestMapping("/user")
-public class LoginController
-{
-    @Autowired
-    LoginService logInService;
+public class LoginController {
+	@Autowired
+	LoginService logInService;
 
-    @ResponseBody
-    @RequestMapping("/hello")
-    public String helloWorld()
-    {
-        return "Hello, World!";
-    }
+	@ResponseBody
+	@RequestMapping("/hello")
+	public String helloWorld() {
+		return "Hello, World!";
+	}
 
-    @ResponseBody
-    @RequestMapping(value = "/login", params = {"name","password"})
-    public String helloName(@RequestParam("name") String name, @RequestParam("password") String password)
-    {	
-    	return Boolean.toString(logInService.checkLogin(name, password));        
-    }
+	@ResponseBody
+	@RequestMapping(value = "/login", params = { "name", "password" })
+	public String login(@RequestParam("name") String name, @RequestParam("password") String password) {
+		return Boolean.toString(logInService.checkLogin(name, password));
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/register", params = { "name", "password" })
+	public String register(@RequestParam("name") String name, @RequestParam("password") String password) {
+		return Boolean.toString(logInService.registerUser(name, password));
+	}
 }

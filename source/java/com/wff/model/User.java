@@ -15,8 +15,10 @@ public class User extends AbstractModel {
 	public DatabaseField userPassword;
 
 	public User() {
-		userName = new DatabaseField("userName", FieldType.STRING, this.getClass().getName());
-		userPassword = new DatabaseField("userPassword", FieldType.STRING, this.getClass().getName());
+		userName = new DatabaseField("userName", FieldType.STRING, this.getClass().getName(),
+				DatabaseTable.usersTable());
+		userPassword = new DatabaseField("userPassword", FieldType.STRING, this.getClass().getName(),
+				DatabaseTable.usersTable());
 		super.addModelFields(userName);
 		super.addModelFields(userPassword);
 	}

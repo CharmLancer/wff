@@ -13,6 +13,7 @@ public class DatabaseField extends DatabaseTable implements DatabaseCommand, Res
 	String instance;
 	String fieldName;
 	String tableName;
+	String rootTable = DatabaseTable.bigTable();
 	FieldType fieldType;
 	String fieldValue;
 
@@ -24,11 +25,19 @@ public class DatabaseField extends DatabaseTable implements DatabaseCommand, Res
 		this.instance = instance;
 	}
 
-	public DatabaseField(final String fieldName, final FieldType fieldType, final String tableName) {
+	public String getRootTable() {
+		return rootTable;
+	}
+
+	public DatabaseField(final String fieldName, final FieldType fieldType, final String tableName,
+			final String... rootTable) {
 		super();
 		this.fieldName = fieldName;
 		this.fieldType = fieldType;
 		this.tableName = tableName;
+		if (rootTable != null && rootTable.length > 0) {
+			this.rootTable = rootTable[0];
+		}
 	}
 
 	public DatabaseField setFieldValue(String fieldValue, final String... tableName) {
@@ -60,7 +69,7 @@ public class DatabaseField extends DatabaseTable implements DatabaseCommand, Res
 
 	@Override
 	public String insert(final String instance) {
-		String sql = "INSERT INTO \"BIGTABLES\""
+		String sql = "INSERT INTO " + rootTable
 				+ "(\"ROWID\", \"INSTANCE\", \"COLUMN\", \"TABLE\", \"VALUE\", \"USER_LABEL\") " + "VALUES "
 				+ "(DEFAULT, '" + instance + "', '" + this.fieldName + "', '" + this.tableName + "', '"
 				+ this.fieldValue + "', 'USER_ADMIN')";
@@ -75,7 +84,7 @@ public class DatabaseField extends DatabaseTable implements DatabaseCommand, Res
 
 	@Override
 	public String select() {
-		String sql = "SELECT * FROM \"BIGTABLES\"" + " WHERE \"TABLE\" ='" + this.tableName + "'";
+		String sql = "SELECT * FROM " + rootTable + " WHERE \"TABLE\" ='" + this.tableName + "'";
 		return sql;
 	}
 

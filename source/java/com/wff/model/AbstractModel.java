@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.wff.database.model.DatabaseCommand;
 import com.wff.database.model.DatabaseField;
-import com.wff.database.model.DatabaseTable;
 import com.wff.database.model.FieldName;
 
 public abstract class AbstractModel implements RowMapper, DatabaseCommand {
@@ -67,7 +66,7 @@ public abstract class AbstractModel implements RowMapper, DatabaseCommand {
 		from.append("(");
 		from.append("SELECT ");
 		from.append(FieldName.INSTANCE.getValue() + "," + FieldName.VALUE.getValue());
-		from.append(" FROM " + DatabaseTable.bigTable());
+		from.append(" FROM " + field.getRootTable());
 		from.append(" WHERE " + FieldName.TABLE.getValue() + "='" + field.getTableName() + "'");
 		from.append(" AND " + FieldName.COLUMN.getValue() + "='" + field.getFieldName() + "'");
 		for (DatabaseField dbField : queryFields) {

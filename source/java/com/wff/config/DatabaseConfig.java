@@ -1,11 +1,7 @@
 package com.wff.config;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -50,11 +46,13 @@ public class DatabaseConfig {
 
 		try {
 			Class.forName("org.postgresql.Driver");
-			BasicDataSource basicDataSource =  new BasicDataSource();
-			 basicDataSource.setUrl(env.getProperty("DATABASE_URL_LOCAL"));
-			 basicDataSource.setUsername(env.getProperty("DATABASE_USER_LOCAL"));
-			 basicDataSource.setPassword( env.getProperty("DATABASE_PASSWORD_LOCAL"));
-					//new DriverManagerDataSource(env.getProperty("DATABASE_URL_LOCAL"),env.getProperty("DATABASE_USER_LOCAL"), env.getProperty("DATABASE_PASSWORD_LOCAL"));
+			BasicDataSource basicDataSource = new BasicDataSource();
+			basicDataSource.setUrl(env.getProperty("DATABASE_URL_LOCAL"));
+			basicDataSource.setUsername(env.getProperty("DATABASE_USER_LOCAL"));
+			basicDataSource.setPassword(env.getProperty("DATABASE_PASSWORD_LOCAL"));
+			// new
+			// DriverManagerDataSource(env.getProperty("DATABASE_URL_LOCAL"),env.getProperty("DATABASE_USER_LOCAL"),
+			// env.getProperty("DATABASE_PASSWORD_LOCAL"));
 			// basicDataSource.setUrl();
 			// basicDataSource.setUsername();
 			// basicDataSource.setPassword();
