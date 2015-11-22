@@ -118,7 +118,11 @@
 		<sourceDirectory>source/java</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>source/resources</directory>
+				<directory>source/java</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
 			</resource>
 		</resources>
 		<testSourceDirectory>source/test/java</testSourceDirectory>
