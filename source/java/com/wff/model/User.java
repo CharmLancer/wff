@@ -60,6 +60,10 @@ public class User extends AbstractModel {
 
 		where.append(userName.getFieldName() + "." + FieldName.INSTANCE.getValue() + "=" + userPassword.getFieldName()
 				+ "." + FieldName.INSTANCE.getValue());
+		for (DatabaseField dbField : queryFields) {
+			where.append(" and " + dbField.getFieldName() + "." + DatabaseTable.value() + "='" + dbField.getFieldValue()
+					+ "'");
+		}
 
 		sql.append("SELECT " + select.toString() + " FROM " + from.toString()
 				+ (where.length() > 0 ? " WHERE " + where.toString() : ""));
