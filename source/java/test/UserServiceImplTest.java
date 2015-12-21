@@ -6,8 +6,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.wff.dao.UserService;
+import com.wff.database.model.DatabaseField;
+import com.wff.exception.DatabaseFieldValueException;
 import com.wff.model.User;
+import com.wff.site.services.UserService;
 
 import test.config.BaseTest;
 
@@ -17,17 +19,23 @@ public class UserServiceImplTest extends BaseTest {
 	UserService userService;
 
 	@Test
-	public void test() {
+	public void test() throws DatabaseFieldValueException {
 		User user = new User();
 		user.userName.setFieldValue("admin");
 		user.userPassword.setFieldValue("-");
 		// Test Insert
-		userService.insertUser(user);
+		userService.insert(user);
 		// Test select all
 		List<User> users = userService.getUser(user.userName, user.userPassword);
 		for (User result : users) {
-			Assert.assertTrue(result.userName.getFieldValue().equalsIgnoreCase("admin"));
-			Assert.assertTrue(result.userPassword.getFieldValue().equalsIgnoreCase("-"));
+			for (DatabaseField modelField : result.getModelFields().values()) {
+				if (modelField.getFieldName().equalsIgnoreCase(result.userName.getFieldName())) {
+					Assert.assertTrue(modelField.getFieldValue().equalsIgnoreCase("admin"));
+				}
+				if (modelField.getFieldName().equalsIgnoreCase(result.userPassword.getFieldName())) {
+					Assert.assertTrue(modelField.getFieldValue().equalsIgnoreCase("-"));
+				}
+			}
 		}
 		// Test select specific
 		Assert.assertTrue(userService.checkUser("admin", "-"));

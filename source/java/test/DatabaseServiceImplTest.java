@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wff.database.local.DatabaseService;
+import com.wff.database.model.DatabaseField;
+import com.wff.database.model.DatabaseTable;
+import com.wff.exception.DatabaseFieldValueException;
 import com.wff.model.User;
 
-import junit.framework.Assert;
 import test.config.BaseTest;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -22,7 +24,7 @@ public class DatabaseServiceImplTest extends BaseTest {
 	DatabaseService databaseService;
 
 	@Test
-	public void testAInsert() {
+	public void testAInsert() throws DatabaseFieldValueException {
 		User user = new User();
 		user.build(user.userName.setFieldValue("Guest01"), user.userPassword.setFieldValue("-"));
 		// Inserting a user
@@ -30,28 +32,28 @@ public class DatabaseServiceImplTest extends BaseTest {
 	}
 
 	@Test
-	public void testBSelect() {
+	public void testBUpdate() throws DatabaseFieldValueException {
 		User user = new User();
-		user.build(user.userName.setFieldValue("Guest"), user.userPassword.setFieldValue("-"));
-		databaseService.insert(user);
-		// Selecting a user
+		// 1. Query to get the instance key assigned to model.
+		user.addQueryFields(new DatabaseField(User.USER_NAME, DatabaseTable.usersTable()).setFieldValue("Guest01"));
 		List<User> users = databaseService.select(user);
+		// 2. Update the model field value to update.
 		for (User u : users) {
-			logger.info("USER " + u.toString());
-			Assert.assertEquals(u.userName.getInstance().isEmpty(), false);
+			u.build(u.userName.setFieldValue("Guest01 New"), u.userPassword.setFieldValue("abc"));
+			databaseService.update(u);
 		}
-		user.build(user.userPassword.setFieldValue("-"));
-		users = databaseService.select(user);
-		for (User result : users) {
-			Assert.assertTrue(result.userPassword.getFieldValue().equalsIgnoreCase("-"));
-		}
+	}
 
-		user.build(user.userName.setFieldValue("Guest"));
-		users = databaseService.select(user);
-		for (User result : users) {
-			Assert.assertTrue(result.userName.getFieldValue().equalsIgnoreCase("Guest"));
+	@Test
+	public void testCDelete() throws DatabaseFieldValueException {
+		User user = new User();
+		// 1. Query to get the instance key assigned to model.
+		user.addQueryFields(new DatabaseField(User.USER_NAME, DatabaseTable.usersTable()).setFieldValue("Guest01 New"));
+		List<User> users = databaseService.select(user);
+		// 2. Update the model field value to update.
+		for (User u : users) {
+			databaseService.delete(u);
 		}
-
 	}
 
 }

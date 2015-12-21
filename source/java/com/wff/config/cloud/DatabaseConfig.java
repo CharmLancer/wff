@@ -1,4 +1,4 @@
-package com.wff.config;
+package com.wff.config.cloud;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -6,9 +6,11 @@ import java.net.URISyntaxException;
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 // @PropertySource("classpath:com/wff/config/application.properties")
+@Profile("cloud")
 public class DatabaseConfig {
 	// @Autowired
 	// Environment env;
