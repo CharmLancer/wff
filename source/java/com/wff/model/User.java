@@ -14,15 +14,19 @@ public class User extends AbstractModel {
 	public static DatabaseFieldProperty USER_NAME = new DatabaseFieldProperty("userName", FieldType.STRING, "User");
 	public static DatabaseFieldProperty USER_PASSWORD = new DatabaseFieldProperty("userPassword", FieldType.DECIMAL,
 			"User");
+	public static DatabaseFieldProperty USER_EMAIL = new DatabaseFieldProperty("userEmail", FieldType.STRING, "User");
 
 	public DatabaseField userName;
 	public DatabaseField userPassword;
+	public DatabaseField userEmail;
 
 	public User() {
 		userName = new DatabaseField(USER_NAME, DatabaseTable.usersTable());
 		userPassword = new DatabaseField(USER_PASSWORD, DatabaseTable.usersTable());
+		userEmail = new DatabaseField(USER_EMAIL, DatabaseTable.usersTable());
 		super.addModelFields(userName);
 		super.addModelFields(userPassword);
+		super.addModelFields(userEmail);
 	}
 
 }

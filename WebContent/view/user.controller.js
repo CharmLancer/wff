@@ -1,4 +1,4 @@
-sap.ui.controller("view.login", {
+sap.ui.controller("view.user", {
 
 	/**
 	 * Called when a controller is instantiated and its View controls (if
@@ -31,22 +31,24 @@ sap.ui.controller("view.login", {
 	// onAfterRendering: function() {
 	//
 	// },
-	doLogin : function(oEvent) {
-		var txtUserName = sap.ui.getCore().byId("login.UserName");
-		var txtPassword = sap.ui.getCore().byId("login.UserPassword");
+	doRegister : function(oEvent) {
+		var txtUserName = sap.ui.getCore().byId("user.UserName");
+		var txtPassword = sap.ui.getCore().byId("user.UserPassword");
+		var txtEmail = sap.ui.getCore().byId("user.UserEmail");
 		// Create a function as a method of controller
 		var aData = jQuery.ajax({
 			type : "GET",
 			contentType : "application/json",
-			url : "user/login",
+			url : "user/register",
 			data : {
 				name : txtUserName.getValue(),
-				password : txtPassword.getValue()
+				password : txtPassword.getValue(),
+				email : txtEmail.getValue()
 			},
 			dataType : "json",
 			success : function(data) {
 				if (data) {
-					oApplication.loadViews();
+					// oApplication.loadViews();
 					oApplication.app.to("dashboard");
 				} else {
 					alert("invalid password");
@@ -55,33 +57,6 @@ sap.ui.controller("view.login", {
 
 		});
 	},
-
-	doRegister : function(oEvent) {
-		// var txtUserName = sap.ui.getCore().byId("login.UserName");
-		// var txtPassword = sap.ui.getCore().byId("login.UserPassword");
-		// // Create a function as a method of controller
-		// var aData = jQuery.ajax({
-		// type : "GET",
-		// contentType : "application/json",
-		// url : "user/register",
-		// data : {
-		// name : txtUserName.getValue(),
-		// password : txtPassword.getValue()
-		// },
-		// dataType : "json",
-		// success : function(data) {
-		// if (data) {
-		// oApplication.loadViews();
-		// oApplication.app.to("dashboard");
-		// } else {
-		// alert("invalid password");
-		// }
-		// }
-		//
-		// });
-		oApplication.loadViews();
-		oApplication.app.to("user");
-	}
 
 /**
  * Called when the Controller is destroyed. Use this one to free resources and

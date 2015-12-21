@@ -25,6 +25,7 @@ oApplication.loadViews = function()
 	//	
 	// app.addPage(page1).addPage(page2);
 	// app.placeAt("content");
+	this.loadView("user", "master");
 	this.loadView("dashboard", "master");
 	this.loadView("registration", "master");
 	this.loadView("weather", "master");
@@ -64,7 +65,7 @@ jQuery.sap.registerModulePath("lib.ext.leaflet", "js/lib/ext/leaflet");
 jQuery.sap.registerModulePath("controls", "js/controls");
 
 // Loading a google maps library
-sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
+// sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
 
 jQuery.sap.require("sap.ui.model.json.JSONModel");
 var oModel = new sap.ui.model.json.JSONModel({

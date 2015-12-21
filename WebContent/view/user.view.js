@@ -1,4 +1,4 @@
-sap.ui.jsview("view.login", {
+sap.ui.jsview("view.user", {
 
 	/**
 	 * Specifies the Controller belonging to this View. In the case that it is
@@ -8,7 +8,7 @@ sap.ui.jsview("view.login", {
 	 * @memberOf sapui5-mobile.login
 	 */
 	getControllerName : function() {
-		return "view.login";
+		return "view.user";
 	},
 
 	/**
@@ -21,26 +21,29 @@ sap.ui.jsview("view.login", {
 	createContent : function(oController) {
 
 		var lblUserName = new sap.m.Label({
-			text : oBundle.getText("view.login.name.label")
+			text : oBundle.getText("view.user.name.label")
 		});
 		var txtUserName = new sap.m.Input({
-			id : "login.UserName",
-			placeholder : oBundle.getText("view.login.name.value")
+			id : "user.UserName",
+			placeholder : oBundle.getText("view.user.name.value")
+		});
+		var lblEmail = new sap.m.Label({
+			text : oBundle.getText("view.user.email.label")
+		});
+		var txtEmail = new sap.m.Input({
+			id : "user.UserEmail",
+			type : "Email",
+			placeholder : oBundle.getText("view.user.email.value")
 		});
 		var lblPassword = new sap.m.Label({
-			text : oBundle.getText("view.login.password.label")
+			text : oBundle.getText("view.user.password.label")
 		});
 		var txtPassword = new sap.m.Input({
-			id : "login.UserPassword",
+			id : "user.UserPassword",
 			type : "Password",
-			placeholder : oBundle.getText("view.login.password.value")
+			placeholder : oBundle.getText("view.user.password.value")
 		});
-		var btnLogin = new sap.m.Button({
-			text : "Sign In",
-			press : function() {
-				oController.doLogin(this);
-			}
-		});
+
 		var btnRegister = new sap.m.Button({
 			text : "Register",
 			press : function() {
@@ -49,8 +52,8 @@ sap.ui.jsview("view.login", {
 		});
 
 		var vbox = new sap.m.VBox({
-			items : [ lblUserName, txtUserName, lblPassword, txtPassword,
-					btnLogin, btnRegister ]
+			items : [ lblUserName, txtUserName, lblEmail, txtEmail,
+					lblPassword, txtPassword, btnRegister ]
 		})
 
 		vbox.setAlignItems("Center");
@@ -58,6 +61,7 @@ sap.ui.jsview("view.login", {
 
 		var page = new sap.m.Page({
 			title : "Water For Food",
+			showNavButton : true,
 			content : [ vbox ]
 		});
 		return page;

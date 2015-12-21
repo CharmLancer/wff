@@ -12,7 +12,7 @@ import com.wff.site.services.UserService;
 
 @Controller
 @RequestMapping("/user")
-public class LoginController {
+public class UserController {
 	@Autowired
 	UserService userService;
 
@@ -30,13 +30,14 @@ public class LoginController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/register", params = { "name", "password" })
-	public String register(@RequestParam("name") String name, @RequestParam("password") String password)
-			throws DatabaseFieldValueException {
+	@RequestMapping(value = "/register", params = { "name", "password", "email" })
+	public String register(@RequestParam("name") String name, @RequestParam("email") String email,
+			@RequestParam("password") String password) throws DatabaseFieldValueException {
 		User user = new User();
 		user.userName.setFieldValue(name);
 		user.userPassword.setFieldValue(password);
+		user.userEmail.setFieldValue(email);
 		userService.insert(user);
-		return "success";
+		return Boolean.toString(Boolean.TRUE);
 	}
 }
