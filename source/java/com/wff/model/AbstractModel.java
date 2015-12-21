@@ -24,8 +24,6 @@ public abstract class AbstractModel implements RowMapper {
 	protected StringBuilder from = new StringBuilder();
 	protected StringBuilder where = new StringBuilder();
 
-	public abstract <M extends AbstractModel> M newInstance();
-
 	Logger LOGGER = LoggerFactory.getLogger(AbstractModel.class);
 	protected HashMap<Integer, DatabaseField> modelFields = new HashMap<>();
 

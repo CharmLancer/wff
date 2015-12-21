@@ -26,46 +26,4 @@ public class Station extends AbstractModel {
 		super.addModelFields(stationLongitude);
 	}
 
-	// @Override
-	// public String select() {
-	// clear();
-	// // Select From clause
-	// for (int i = 0; i < modelFields.size(); i++) {
-	// prepareFromClause(select, from, i);
-	// }
-	// // Where clause
-	// DatabaseField firstField = modelFields.get(0);
-	// for (int i = 1; i < modelFields.size(); i++) {
-	// if (i == 1) {
-	// where.append(firstField.getFieldName() + "." +
-	// FieldName.INSTANCE.getValue() + "="
-	// + modelFields.get(i).getFieldName() + "." +
-	// FieldName.INSTANCE.getValue());
-	// } else {
-	// where.append(" and " + firstField.getFieldName() + "." +
-	// FieldName.INSTANCE.getValue() + "="
-	// + modelFields.get(i).getFieldName() + "." +
-	// FieldName.INSTANCE.getValue());
-	// }
-	//
-	// }
-	// // Filtering
-	// for (DatabaseField dbField : queryFields.values()) {
-	// where.append(" and " + dbField.getFieldName() + "." +
-	// DatabaseTable.value() + "='" + dbField.getFieldValue()
-	// + "'");
-	// }
-	// // Final Statement
-	// sql.append("SELECT " + select.toString() + " FROM " + from.toString()
-	// + (where.length() > 0 ? " WHERE " + where.toString() : ""));
-	// LOGGER.info(sql.toString());
-	// return sql.toString();
-	// }
-
-	@Override
-	public <M extends AbstractModel> M newInstance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
