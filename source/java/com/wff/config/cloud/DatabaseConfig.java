@@ -3,7 +3,7 @@ package com.wff.config.cloud;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,7 +16,7 @@ public class DatabaseConfig {
 	// Environment env;
 
 	@Bean
-	public BasicDataSource dataSource() throws URISyntaxException {
+	public BasicDataSource basicDataSource() throws URISyntaxException {
 
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -32,6 +32,7 @@ public class DatabaseConfig {
 		return basicDataSource;
 	}
 	//
+
 	// @Bean
 	// public BasicDataSource dataSource() throws URISyntaxException,
 	// ConfigurationException {

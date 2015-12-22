@@ -2,7 +2,7 @@ package com.wff.config.local;
 
 import java.net.URISyntaxException;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class DatabaseConfig {
 	Environment env;
 
 	@Bean
-	public BasicDataSource dataSource() throws URISyntaxException, ConfigurationException {
+	public BasicDataSource basicDataSource() throws URISyntaxException, ConfigurationException {
 		// URI dbUri = new URI(System.getenv("DATABASE_URL"));
 		// URI dbUri = new URI("jdbc:postgresql://localhost:5432/iwrm");
 		// URI dbUri= new URI(env.getProperty("DATABASE_URL"));
