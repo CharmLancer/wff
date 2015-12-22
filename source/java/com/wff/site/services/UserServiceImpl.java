@@ -2,8 +2,6 @@ package com.wff.site.services;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,6 @@ import com.wff.model.User;
 @Service
 public class UserServiceImpl implements UserService {
 	Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-
-	@Autowired
-	DataSource datasource;
 
 	@Autowired
 	DatabaseService databaseService;
