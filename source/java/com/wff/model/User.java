@@ -3,17 +3,21 @@ package com.wff.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.wff.database.model.DatabaseField;
 import com.wff.database.model.DatabaseFieldProperty;
 import com.wff.database.model.DatabaseTable;
 import com.wff.database.model.FieldType;
 
+@JsonRootName(value = "User")
 public class User extends AbstractModel {
 	Logger LOGGER = LoggerFactory.getLogger(User.class);
 
 	public static DatabaseFieldProperty USER_NAME = new DatabaseFieldProperty("userName", FieldType.STRING, "User");
+
 	public static DatabaseFieldProperty USER_PASSWORD = new DatabaseFieldProperty("userPassword", FieldType.DECIMAL,
 			"User");
+
 	public static DatabaseFieldProperty USER_EMAIL = new DatabaseFieldProperty("userEmail", FieldType.STRING, "User");
 
 	public DatabaseField userName;

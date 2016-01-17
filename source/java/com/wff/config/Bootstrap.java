@@ -9,7 +9,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import com.wff.config.cloud.DatabaseConfig;
+import com.wff.config.local.DatabaseConfig;
 
 public class Bootstrap implements WebApplicationInitializer {
 	@Override

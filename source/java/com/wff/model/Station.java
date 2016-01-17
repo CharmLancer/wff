@@ -1,9 +1,11 @@
 package com.wff.model;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.wff.database.model.DatabaseField;
 import com.wff.database.model.DatabaseFieldProperty;
 import com.wff.database.model.FieldType;
 
+@JsonRootName(value = "Station")
 public class Station extends AbstractModel {
 	// Variable to know field property such as name, type, table
 	public static DatabaseFieldProperty STATION_NAME = new DatabaseFieldProperty("stationName", FieldType.STRING,

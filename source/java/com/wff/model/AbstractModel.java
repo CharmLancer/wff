@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wff.database.model.DatabaseField;
 import com.wff.database.model.DatabaseFieldProperty;
 import com.wff.database.model.DatabaseTable;
@@ -24,10 +25,13 @@ public abstract class AbstractModel implements RowMapper {
 	protected StringBuilder from = new StringBuilder();
 	protected StringBuilder where = new StringBuilder();
 
+	@JsonIgnore
 	Logger LOGGER = LoggerFactory.getLogger(AbstractModel.class);
+
+	@JsonIgnore
 	protected HashMap<Integer, DatabaseField> modelFields = new HashMap<>();
 
-	// protected ArrayList<DatabaseField>
+	@JsonIgnore
 	protected HashMap<Integer, DatabaseField> queryFields = new HashMap<>();
 
 	public void setModelFields(HashMap<Integer, DatabaseField> modelFields) {
@@ -83,6 +87,7 @@ public abstract class AbstractModel implements RowMapper {
 		return count == queryFields.size();
 	}
 
+	@JsonIgnore
 	public ArrayList<DatabaseField> getModelFieldsWithValue() {
 		ArrayList<DatabaseField> modelFieldsWithValue = new ArrayList<>();
 		for (DatabaseField modelField : modelFields.values()) {
