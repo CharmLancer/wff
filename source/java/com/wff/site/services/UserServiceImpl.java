@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.wff.database.local.DatabaseService;
 import com.wff.database.model.DatabaseField;
+import com.wff.dto.ModelDto;
 import com.wff.exception.DatabaseFieldValueException;
 import com.wff.model.AbstractModel;
-import com.wff.model.User;
+import com.wff.site.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,12 +28,12 @@ public class UserServiceImpl implements UserService {
 		user.build(user.userName.setFieldValue(userName), user.userPassword.setFieldValue(userPassword));
 		user.addQueryFields(user.userName);
 		user.addQueryFields(user.userPassword);
-		List<User> users = databaseService.select(user);
+		List<ModelDto<User>> users = databaseService.select(user);
 		return !users.isEmpty();
 	}
 
 	@Override
-	public List<User> getUser(DatabaseField... dbFields) {
+	public List<ModelDto<User>> getUser(DatabaseField... dbFields) {
 		User user = new User();
 		user.build(dbFields);
 		for (DatabaseField dbField : dbFields) {
@@ -42,33 +43,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> insert(M model) {
+	public <M extends AbstractModel> List<ModelDto<M>> insert(M model) {
 		databaseService.insert(model);
 		return databaseService.select(model);
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> update(M model) {
+	public <M extends AbstractModel> List<ModelDto<M>> update(M model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> delete(M model) {
+	public <M extends AbstractModel> List<ModelDto<M>> delete(M model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> selectBy(M model) {
+	public <M extends AbstractModel> List<ModelDto<M>> selectBy(M model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> selectAll(M model) {
-		// TODO Auto-generated method stub
-		return null;
+	public <M extends AbstractModel> List<ModelDto<M>> selectAll(M model) {
+		return databaseService.select(model);
 	}
 
 }

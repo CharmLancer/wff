@@ -21,15 +21,15 @@ sap.ui.jsview("view.weather-details", {
 	createContent : function(oController) {
 		var form = new sap.ui.layout.form.SimpleForm("id_weather_details_form",
 				{
-					title : "{stationName/fieldValue}",
+					title : "{model/stationName/value}",
 					content : [ new sap.m.Label({
 						text : "Latitude"
 					}), new sap.m.Text({
-						text : "{stationLatitude/fieldValue}"
+						text : "{model/stationLatitude/value}"
 					}), new sap.m.Label({
 						text : "Longitude"
 					}), new sap.m.Text({
-						text : "{stationLongitude/fieldValue}"
+						text : "{model/stationLongitude/value}"
 					}) ]
 				});
 

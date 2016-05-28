@@ -8,9 +8,13 @@ sap.ui.controller("view.login", {
 	 * 
 	 * @memberOf sapui5-mobile.login
 	 */
-	// onInit: function() {
-	//
-	// },
+	onInit : function() {
+		var myMap = new openui5.googlemaps.Map({
+			lng : "-151.2",
+			lat : "-33.920",
+			zoom : 5
+		}).placeAt("id_login_view");
+	},
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
 	 * controller's View is re-rendered (NOT before the first rendering!
@@ -28,9 +32,12 @@ sap.ui.controller("view.login", {
 	 * 
 	 * @memberOf sapui5-mobile.login
 	 */
-	// onAfterRendering: function() {
-	//
-	// },
+	onAfterRendering : function() {
+		var map_container = sap.ui.getCore().byId("id_login_map_container");
+
+		// lat="-33.920" lng="151.2"
+
+	},
 	doLogin : function(oEvent) {
 		var txtUserName = sap.ui.getCore().byId("login.UserName");
 		var txtPassword = sap.ui.getCore().byId("login.UserPassword");

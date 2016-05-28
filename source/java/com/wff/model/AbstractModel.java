@@ -18,7 +18,6 @@ import com.wff.database.model.DatabaseTable;
 import com.wff.database.model.FieldName;
 import com.wff.exception.DatabaseFieldValueException;
 
-@SuppressWarnings("rawtypes")
 public abstract class AbstractModel implements RowMapper {
 	protected StringBuilder sql = new StringBuilder();
 	protected StringBuilder select = new StringBuilder();
@@ -34,10 +33,12 @@ public abstract class AbstractModel implements RowMapper {
 	@JsonIgnore
 	protected HashMap<Integer, DatabaseField> queryFields = new HashMap<>();
 
+	@JsonIgnore
 	public void setModelFields(HashMap<Integer, DatabaseField> modelFields) {
 		this.modelFields = modelFields;
 	}
 
+	@JsonIgnore
 	public void setQueryFields(HashMap<Integer, DatabaseField> queryFields) {
 		this.queryFields = queryFields;
 	}
@@ -204,6 +205,7 @@ public abstract class AbstractModel implements RowMapper {
 
 	@Override
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+
 		for (DatabaseField field : modelFields.values()) {
 			if (rs.getString(field.getFieldName()) != null) {
 				try {
@@ -219,6 +221,11 @@ public abstract class AbstractModel implements RowMapper {
 			}
 
 		}
+		LOGGER.warn("Values after map row");
+		for (DatabaseField field : modelFields.values()) {
+			LOGGER.warn(field.toString());
+		}
+
 		return this;
 	}
 

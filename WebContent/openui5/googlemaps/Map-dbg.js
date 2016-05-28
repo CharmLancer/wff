@@ -1,106 +1,107 @@
 /**
  * openui5-googlemaps - OpenUI5 Google Maps library
- * @version v0.0.9
+ * @version v0.0.19
  * @link http://jasper07.github.io/openui5-googlemaps/
  * @license MIT
- */sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
+ */sap.ui.define(["jquery.sap.global", "sap/ui/core/Control", "sap/ui/core/ResizeHandler", "google.maps", "./MapUtils", "./MapTypeId"],
     function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
         "use strict";
-        var Map = Control.extend('openui5.googlemaps.Map', {
+        var Map = Control.extend("openui5.googlemaps.Map", {
             metadata: {
                 properties: {
-                    'lat': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "lat": {
+                        type: "float",
+                        bindable: "bindable",
                         defaultValue: 1
                     },
-                    'lng': {
-                        type: 'float',
-                        bindable: 'bindable',
+                    "lng": {
+                        type: "float",
+                        bindable: "bindable",
                         defaultValue: 1
                     },
-                    'width': {
-                        type: 'sap.ui.core.CSSSize',
-                        group: 'Dimension',
-                        defaultValue: 'auto'
+                    "width": {
+                        type: "sap.ui.core.CSSSize",
+                        group: "Dimension",
+                        defaultValue: "auto"
                     },
-                    'height': {
-                        type: 'sap.ui.core.CSSSize',
-                        group: 'Dimension',
-                        defaultValue: '20em'
+                    "height": {
+                        type: "sap.ui.core.CSSSize",
+                        group: "Dimension",
+                        defaultValue: "20em"
                     },
-                    'zoom': {
-                        type: 'int',
+                    "zoom": {
+                        type: "int",
                         defaultValue: 8
                     },
-                    'disableDefaultUI': {
-                        type: 'boolean',
+                    "disableDefaultUI": {
+                        type: "boolean",
                         defaultValue: true
                     },
-                    'mapTypeId': {
-                        type: 'string',
+                    "mapTypeId": {
+                        type: "string",
 
                         defaultValue: MapTypeId.ROADMAP
                     },
-                    'panControl': {
-                        type: 'boolean',
+                    "panControl": {
+                        type: "boolean",
                         defaultValue: false
                     },
-                    'zoomControl': {
-                        type: 'boolean',
+                    "zoomControl": {
+                        type: "boolean",
                         defaultValue: false
                     },
-                    'mapTypeControl': {
-                        type: 'boolean',
+                    "mapTypeControl": {
+                        type: "boolean",
                         defaultValue: false
                     },
-                    'streetViewControl': {
-                        type: 'boolean',
+                    "streetViewControl": {
+                        type: "boolean",
                         defaultValue: false
                     }
                 },
                 defaultAggregation: "markers",
                 aggregations: {
-                    'markers': {
-                        type: 'openui5.googlemaps.Marker',
+                    "markers": {
+                        type: "openui5.googlemaps.Marker",
                         multiple: true,
-                        bindable: 'bindable'
+                        bindable: "bindable"
                     },
-                    'polylines': {
-                        type: 'openui5.googlemaps.Polyline',
+                    "polylines": {
+                        type: "openui5.googlemaps.Polyline",
                         multiple: true,
-                        bindable: 'bindable'
+                        bindable: "bindable"
                     },
-                    'polygons': {
-                        type: 'openui5.googlemaps.Polygon',
+                    "polygons": {
+                        type: "openui5.googlemaps.Polygon",
                         multiple: true,
-                        bindable: 'bindable'
+                        bindable: "bindable"
                     },
-                    'directions': {
-                        type: 'openui5.googlemaps.Directions',
+                    "directions": {
+                        type: "openui5.googlemaps.Directions",
                         multiple: false,
-                        bindable: 'bindable'
+                        bindable: "bindable"
                     },
-                    'markerCluster': {
-                        type: 'openui5.googlemaps.MarkerCluster',
+                    "markerCluster": {
+                        type: "openui5.googlemaps.MarkerCluster",
                         multiple: false,
-                        bindable: 'bindable'
+                        bindable: "bindable"
                     }
                 },
                 events: {
-                    'ready': {}
+                    "ready": {},
+                    "click": {}
                 }
             },
             renderer: function(oRm, oControl) {
-                oRm.write('<div ');
+                oRm.write("<div ");
                 oRm.writeControlData(oControl);
-                oRm.addStyle("width", 'auto');
-                oRm.addStyle("height", 'auto');
+                oRm.addStyle("width", "auto");
+                oRm.addStyle("height", "auto");
                 oRm.writeClasses();
                 oRm.writeStyles();
-                oRm.write('>');
+                oRm.write(">");
                 oRm.renderControl(oControl._html);
-                oRm.write('</div>');
+                oRm.write("</div>");
             }
         });
 
@@ -114,12 +115,12 @@
         };
 
         Map.prototype.setHeight = function(sValue) {
-            this.setProperty('height', sValue, true);
+            this.setProperty("height", sValue, true);
             this.setSize();
         };
 
         Map.prototype.setWidth = function(sValue) {
-            this.setProperty('width', sValue, true);
+            this.setProperty("width", sValue, true);
             this.setSize();
         };
 
@@ -134,7 +135,7 @@
         };
 
         Map.prototype.setZoom = function(iValue) {
-            this.setProperty('zoom', iValue, true);
+            this.setProperty("zoom", iValue, true);
             if (this.map && iValue !== this.map.getZoom()) {
                 this.map.setZoom(iValue);
             }
@@ -143,7 +144,7 @@
         Map.prototype.setLat = function(oValue) {
             var val = parseFloat(oValue);
             if (!MapUtils.floatEqual(val, this.getLat())) {
-                this.setProperty('lat', val, true);
+                this.setProperty("lat", val, true);
                 this._updateCenter();
             }
         };
@@ -151,7 +152,7 @@
         Map.prototype.setLng = function(oValue) {
             var val = parseFloat(oValue);
             if (!MapUtils.floatEqual(val, this.getLng())) {
-                this.setProperty('lng', val, true);
+                this.setProperty("lng", val, true);
                 this._updateCenter();
             }
         };
@@ -165,29 +166,29 @@
             jQuery.sap.clearDelayedCall(this.delayedCallId);
             this.delayedCallId = jQuery.sap.delayedCall(0, this, function() {
                 this.map.setCenter(new Gmaps.LatLng(this.getLat(), this.getLng()));
-                this.notifyAggregations('MapRendered');
+                this.notifyAggregations("mapRendered");
             });
         };
 
         Map.prototype.setMapTypeId = function(sValue) {
-            this.setProperty('mapTypeId', sValue, true);
+            this.setProperty("mapTypeId", sValue, true);
             if (this.map && sValue !== this.map.getMapTypeId()) {
                 this.map.setMapTypeId(sValue);
             }
         };
 
         Map.prototype.setZoomControl = function(bValue) {
-            this.setProperty('zoomControl', bValue, true);
-            if (this.map && bValue !== this.map.getZoomControl()) {
-                this.map.setZoomControl(bValue);
+            this.setProperty("zoomControl", bValue, true);
+            if (this.map && bValue !== this.map.zoomControl) {
+                this.map.zoomControl = bValue;
             }
         };
 
-        Map.prototype.setDisableDefaultUi = function(bValue) {
-            this.setProperty('disableDefaultUi', bValue, true);
+        Map.prototype.setDisableDefaultUI = function(bValue) {
+            this.setProperty("disableDefaultUI", bValue, true);
             if (this.map) {
                 this.map.setOptions({
-                    disableDefaultUI: this.disableDefaultUI
+                    disableDefaultUI: this.getDisableDefaultUI()
                 });
             }
         };
@@ -214,7 +215,7 @@
             var mapOptions = {};
             mapOptions.zoom = this.getZoom();
             mapOptions.center = new Gmaps.LatLng(this.getLat(), this.getLng());
-            mapOptions.disableDefaultUi = this.getDisableDefaultUI();
+            mapOptions.disableDefaultUI = this.getDisableDefaultUI();
             mapOptions.mapTypeId = this.getMapTypeId();
             mapOptions.panControl = this.getPanControl();
             mapOptions.zoomControl = this.getZoomControl();
@@ -233,7 +234,7 @@
         };
 
         Map.prototype.onAfterRendering = function() {
-            //if map not loaded yet subscribe to its event    
+            //if map not loaded yet subscribe to its event
             if (Gmaps.loaded === undefined) {
                 if (this.subscribed === undefined) {
                     sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
@@ -257,24 +258,24 @@
             //  create map
             this.map = new Gmaps.Map(jQuery.sap.domById(this.mapId), this._getMapOptions());
 
-            this.notifyAggregations('MapRendered');
+            this.notifyAggregations("mapRendered");
 
             // set up listeners
-            this.addListener('drag', jQuery.proxy(this.isDragging, this));
-            this.addListener('dragstart', jQuery.proxy(this.isDragging, this));
-            this.addListener('zoom_changed', jQuery.proxy(this.zoomChanged, this));
-            this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
-            this.addListener('idle', jQuery.proxy(this.mapChanged, this));
-            // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this)); //TODO
-            this.addListener('maptypeid_changed', jQuery.proxy(this.mapTypeIdChanged, this));
+            this.addListener("drag", this.isDragging.bind(this));
+            this.addListener("dragstart", this.isDragging.bind(this));
+            this.addListener("zoom_changed", this.zoomChanged.bind(this));
+            this.addListener("center_changed", this.updateValues.bind(this));
+            this.addListener("idle", this.mapChanged.bind(this));
+            this.addListener("maptypeid_changed", this.mapTypeIdChanged.bind(this));
+            this.addListener("click", this.clicked.bind(this));
 
-            this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), jQuery.proxy(this.onResize, this));
+            this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), this.onResize.bind(this));
 
             this.initialized = true;
         };
 
-        Map.prototype.addListener = function(event, callback) {
-            this.aListeners.push(Gmaps.event.addListener(this.map, event, callback));
+        Map.prototype.addListener = function(sEvent, fnCallback) {
+            this.aListeners.push(MapUtils.addListener(this.map, sEvent, fnCallback));
         };
 
         Map.prototype.removeListeners = function() {
@@ -284,8 +285,8 @@
             this.aListeners = [];
         };
 
-        Map.prototype.trigger = function(event) {
-            Gmaps.event.trigger(this.map, event);
+        Map.prototype.trigger = function(sEvent, oArguments) {
+            Gmaps.event.trigger(this.map, sEvent, oArguments);
         };
 
         Map.prototype.isDragging = function() {
@@ -314,41 +315,41 @@
             var center = MapUtils.latLngToObj(this.map.getCenter());
 
             if (!MapUtils.floatEqual(center.lat, this.getLat())) {
-                this.setProperty('lat', center.lat, true);
+                this.setProperty("lat", center.lat, true);
             }
 
             if (!MapUtils.floatEqual(center.lng, this.getLng())) {
-                this.setProperty('lng', center.lng, true);
+                this.setProperty("lng", center.lng, true);
             }
         };
 
         Map.prototype._notifyMarkers = function(action, param) {
             this.getMarkers().forEach(function(oMarker) {
-                oMarker["on" + action](param);
+                oMarker["_" + action](param);
             });
         };
 
         Map.prototype._notifyPolylines = function(action, param) {
             this.getPolylines().forEach(function(oPolyline) {
-                oPolyline["on" + action](param);
+                oPolyline["_" + action](param);
             });
         };
 
         Map.prototype._notifyPolygons = function(action, param) {
             this.getPolygons().forEach(function(oPolygons) {
-                oPolygons["on" + action](param);
+                oPolygons["_" + action](param);
             });
         };
 
         Map.prototype._notifyDirections = function(action, param) {
             if (this.getDirections()) {
-                this.getDirections()["on" + action](param);
+                this.getDirections()["_" + action](param);
             }
         };
 
         Map.prototype._notifyMarkerCluster = function(action, param) {
             if (this.getMarkerCluster()) {
-                this.getMarkerCluster()["on" + action](param);
+                this.getMarkerCluster()["_" + action](param);
             }
         };
 
@@ -363,6 +364,15 @@
         Map.prototype.exit = function() {
             this.resetMap();
             ResizeHandler.deregister(this.resizeID);
+        };
+
+        Map.prototype.clicked = function(oEvent) {
+            this.fireClick({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: oEvent.latLng.lat(),
+                lng: oEvent.latLng.lng()
+            });
         };
 
         return Map;

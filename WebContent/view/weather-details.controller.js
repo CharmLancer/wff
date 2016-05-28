@@ -1,20 +1,21 @@
 sap.ui.controller("view.weather-details", {
 
-   /**
-    * Called when a controller is instantiated and its View controls (if
-    * available) are already created. Can be used to modify the View before it
-    * is displayed, to bind event handlers and do other one-time initialization.
-    * 
-    * @memberOf sapui5-mobile.water-user
-    */
-   onInit : function() {
-      var mapPage = sap.ui.getCore().byId('id_weather_details_page');
-      var myMap = new openui5.googlemaps.Map({
-         lng : "{longitude}",
-         lat : "{latitude}",
-         zoom : "{zoom}"
-      }).placeAt(mapPage);
-   },
+	/**
+	 * Called when a controller is instantiated and its View controls (if
+	 * available) are already created. Can be used to modify the View before it
+	 * is displayed, to bind event handlers and do other one-time
+	 * initialization.
+	 * 
+	 * @memberOf sapui5-mobile.water-user
+	 */
+	onInit : function() {
+		var mapPage = sap.ui.getCore().byId('id_weather_details_page');
+		var myMap = new openui5.googlemaps.Map({
+			lng : "{longitude}",
+			lat : "{latitude}",
+			zoom : "{zoom}"
+		}).placeAt(mapPage);
+	},
 
 /**
  * Similar to onAfterRendering, but this hook is invoked before the controller's

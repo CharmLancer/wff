@@ -18,7 +18,7 @@ public class Bootstrap implements WebApplicationInitializer {
 		container.getServletRegistration("default").addMapping("/index.html");
 
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.getEnvironment().setActiveProfiles("cloud");
+		rootContext.getEnvironment().setActiveProfiles("local");
 		rootContext.register(RootContextConfiguration.class, AppConfig.class, DatabaseConfig.class);
 		container.addListener(new ContextLoaderListener(rootContext));
 

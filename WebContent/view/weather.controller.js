@@ -40,13 +40,13 @@ sap.ui.controller("view.weather", {
 			success : function(data) {
 				if (data) {
 					var list = sap.ui.getCore().byId("weather.stations");
-					var oModel = new sap.ui.model.json.JSONModel();
+					var oModel = sap.ui.getCore().getModel("stationData");
 					oModel.setData(data);
 					// http://scn.sap.com/thread/3415475
 					var itemTemplate = new sap.m.StandardListItem({
-						title : "{stationName/fieldValue}",
+						title : "{model/stationName/value}",
 						icon : "sap-icon://temperature",
-						description : "{stationLatitude/fieldType}",
+						description : "{model/stationLatitude/value}",
 						iconInset : false,
 						type : sap.m.ListType.Navigation,
 						// press :
@@ -55,10 +55,9 @@ sap.ui.controller("view.weather", {
 					});
 					list.setModel(oModel);
 					// list.bindAggregation("items", "/", itemTemplate);
-					list.bindItems({
-						path : "/Stations/",
-						template : itemTemplate
-					});
+					// list.bindItems({path : "/Stations/",template :
+					// itemTemplate});
+					list.bindAggregation("items", "/", itemTemplate);
 				}
 			}
 		});

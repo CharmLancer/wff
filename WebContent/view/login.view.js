@@ -48,6 +48,13 @@ sap.ui.jsview("view.login", {
 			}
 		});
 
+		var oModel = new sap.ui.model.json.JSONModel({
+			longitude : 8,
+			latitude : 49,
+			zoom : 6
+		});
+		sap.ui.getCore().setModel(oModel);
+
 		var vbox = new sap.m.VBox({
 			items : [ lblUserName, txtUserName, lblPassword, txtPassword,
 					btnLogin, btnRegister ]
@@ -56,7 +63,7 @@ sap.ui.jsview("view.login", {
 		vbox.setAlignItems("Center");
 		vbox.setJustifyContent("Center");
 
-		var page = new sap.m.Page({
+		var page = new sap.m.Page("id_login_view", {
 			title : "Water For Food",
 			content : [ vbox ]
 		});

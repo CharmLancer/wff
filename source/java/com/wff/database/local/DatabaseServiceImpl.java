@@ -3,8 +3,10 @@ package com.wff.database.local;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -14,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.wff.database.model.DatabaseField;
+import com.wff.dto.ModelDto;
+import com.wff.exception.DatabaseFieldValueException;
 import com.wff.model.AbstractModel;
 
 @Service
@@ -86,19 +91,30 @@ public class DatabaseServiceImpl implements DatabaseService {
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			String sqls[] = new String[model.getModelFields().size()];
 			// First get the instance to update model fields
-			List<M> queriedModels = select(model);
-			for (M queriedModel : queriedModels) {
+			List<ModelDto<M>> queriedModels = select(model);
+			StringBuilder sb = new StringBuilder();
+			for (ModelDto<M> queriedModel : queriedModels) {
 				LOGGER.info(queriedModel.toString());
-				Iterator<DatabaseField> modelFieldsIterator = queriedModel.getModelFields().values().iterator();
+				Iterator<HashMap> modelFieldsIterator = queriedModel.getValues().keySet().iterator();
 				int i = 0;
 				while (modelFieldsIterator.hasNext()) {
-					DatabaseField queryField = modelFieldsIterator.next();
-					sqls[i] = queryField.delete();
-					LOGGER.warn(sqls[i]);
-					i++;
+					HashMap fields = modelFieldsIterator.next();
+					if (fields.containsKey("INSTANCE")) {
+						if (sb.length() > 0) {
+							sb.append("," + fields.get("INSTANCE"));
+						} else {
+							sb.append(fields.get("INSTANCE"));
+						}
+					}
 				}
 			}
-			jdbcTemplate.batchUpdate(sqls);
+			//
+			if (sb.length() > 0) {
+
+				LOGGER.trace("Delete From {} where INSTANCE in {}", model.getInstance().getTableName(), sb.toString());
+				jdbcTemplate.batchUpdate("Delete from 'BIGTABLES' where INSTANCE IN " + sb.toString());
+			}
+
 			return true;
 		} catch (Exception e) {
 			LOGGER.error("Failed to update.");
@@ -107,7 +123,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 	}
 
 	@Override
-	public <M extends AbstractModel> List<M> select(M model) {
+	public <M extends AbstractModel> List<ModelDto<M>> select(M model) {
 
 		try (Connection con = dataSource.getConnection()) {
 			jdbcTemplate = new JdbcTemplate(dataSource);
@@ -115,11 +131,30 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 			LOGGER.info(model.select());
 			// jdbcTemplate.query(sqls[0], model.getFields().get(0));
-			List<M> models = jdbcTemplate.query(model.select(), model);
+			// List<M> models = jdbcTemplate.query(model.select(), model);
+			List<ModelDto<M>> models = Lists.newArrayList();
+			List<Map<String, Object>> rows = jdbcTemplate.queryForList(model.select());
+			for (Map row : rows) {
+				model.clearModelValues();
+				for (DatabaseField field : model.getModelFields().values()) {
+					if (row.get(field.getFieldName()) != null) {
+						try {
+							field.setFieldValue(row.get(field.getFieldName()).toString(), field.getTableName());
+						} catch (DatabaseFieldValueException e) {
+							throw new SQLException("Unexpected exception");
+						}
+					} else {
+						throw new SQLException("Field name was not found");
+					}
+					if (row.get("INSTANCE") != null) {
+						field.setInstance(row.get("INSTANCE").toString());
+					}
 
-			for (M m : models) {
-				LOGGER.info(m.toString());
+				}
+				ModelDto<M> dto = new ModelDto<M>(model);
+				models.add(dto);
 			}
+
 			return models;
 		} catch (SQLException e) {
 			LOGGER.error("Failed to select.");
