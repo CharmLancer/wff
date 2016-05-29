@@ -11,12 +11,36 @@ sap.ui.controller("view.registration", {
 
 		var lat;
 		var long;
-
 		var oData = [ {
 			name : "Bondi Beach",
 			lat : -33.890542,
 			lng : 151.274856,
 		} ];
+
+		function geoFindMe() {
+
+			if (!navigator.geolocation) {
+				return false;
+			}
+
+			function success(position) {
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				// alert(latitude + "," + longitude);
+				oData.lat = latitude;
+				oData.lng = longitude;
+			}
+			;
+
+			function error() {
+				return false;
+			}
+			;
+
+			return navigator.geolocation.getCurrentPosition(success, error);
+		}
+
+		geoFindMe();
 
 		var oModel = new sap.ui.model.json.JSONModel();
 		oModel.setData({
@@ -24,55 +48,15 @@ sap.ui.controller("view.registration", {
 		});
 		var oContext = oModel.getContext('/places/0/');
 
-		var myMap = new openui5.googlemaps.Map({
-			lng : -151.2,
-			lat : -33.920,
-			zoom : 2,
-			onMapReady : function(oEvent) {
-				alert("hi");
-				oController.onMyLocation();
-			}
-		}).placeAt("id_registration_page");
+		var myMap = new openui5.googlemaps.Map("id_registration_map", {
+			lat : oData.lat,
+			lng : oData.lng,
+			zoom : 7,
+			zoomControl : true
+		}).placeAt("id_registration_page").setBindingContext(oContext);
+
 		this.getView().setModel(oModel);
 
-	},
-
-	/* on marker drag end */
-	onMarkerDragEnd : function(oEvent) {
-		util.geocodePosition(oEvent.getParameters().position).done(
-				updateLocation);
-	},
-
-	/* get my location */
-	onMyLocation : function() {
-		var util = openui5.googlemaps.MapUtils;
-		util.currentPosition().then(this.getLocationCallback).then(
-				util.geocodePosition).done(this.updateLocation);
-	},
-
-	/* update location */
-	updateLocation : function(sLocation) {
-		// oModel.setProperty(oContext.getPath() + 'name', sLocation);
-		// sap.ui.getCore().byId('auto').setValue(sLocation);
-		var oModel = sap.ui.getCore().byId("id_registration_page").getModel();
-		var oContext = oModel.getContext('/places/0/');
-		oModel.setProperty(oContext.getPath() + 'name', sLocation);
-		// lat = sLocation.lat;
-		// long = sLocation.lng;
-		// alert("Lat : " + lat + " and Long : " + long);
-		console.log(oModel)
-	},
-
-	/* update mode with location adn return a lat lng object */
-	getLocationCallback : function(oPos) {
-		var oModel = sap.ui.getCore().byId("id_registration_page").getModel();
-		var oContext = oModel.getContext('/places/0/');
-		oModel.setProperty('lat', oPos.lat, oContext);
-		oModel.setProperty('lng', oPos.lng, oContext);
-		oModel.setProperty('name', 'My Location', oContext);
-
-		var util = openui5.googlemaps.MapUtils;
-		return util.objToLatLng(oPos);
 	},
 
 	/**

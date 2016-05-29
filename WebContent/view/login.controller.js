@@ -9,12 +9,35 @@ sap.ui.controller("view.login", {
 	 * @memberOf sapui5-mobile.login
 	 */
 	onInit : function() {
-		var myMap = new openui5.googlemaps.Map({
-			lng : "-151.2",
-			lat : "-33.920",
-			zoom : 5
-		}).placeAt("id_login_view");
+
+		function geoFindMe() {
+
+			if (!navigator.geolocation) {
+				return false;
+			}
+
+			function success(position) {
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				// alert(latitude + "," + longitude);
+				var myMap = new openui5.googlemaps.Map({
+					lng : longitude,
+					lat : latitude,
+					zoom : 15
+				}).placeAt("id_login_view");
+			}
+			;
+
+			function error() {
+				return false;
+			}
+			;
+
+			return navigator.geolocation.getCurrentPosition(success, error);
+		}
+		geoFindMe();
 	},
+
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
 	 * controller's View is re-rendered (NOT before the first rendering!
@@ -64,8 +87,10 @@ sap.ui.controller("view.login", {
 	},
 
 	doRegister : function(oEvent) {
-		// var txtUserName = sap.ui.getCore().byId("login.UserName");
-		// var txtPassword = sap.ui.getCore().byId("login.UserPassword");
+		// var txtUserName =
+		// sap.ui.getCore().byId("login.UserName");
+		// var txtPassword =
+		// sap.ui.getCore().byId("login.UserPassword");
 		// // Create a function as a method of controller
 		// var aData = jQuery.ajax({
 		// type : "GET",

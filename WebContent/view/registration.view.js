@@ -57,14 +57,8 @@ sap.ui.jsview("view.registration", {
 					width : "100%",
 					press : oController.onSave
 				});
-		var btnShowMyLocation = new sap.m.Button(
-				"id.registration.view.button.mylocation", {
-					text : "Show My Location",
-					width : "100%",
-					press : oController.onMyLocation
-				});
+
 		map.addItem(btnSaveStation);
-		map.addItem(btnShowMyLocation);
 
 		return new sap.m.Page("id_registration_page", {
 			title : "Register Station",
