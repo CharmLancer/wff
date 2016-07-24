@@ -19,6 +19,9 @@ public class StationServiceImpl extends BaseServiceImpl implements StationServic
 	@Autowired
 	DatabaseService databaseService;
 
+	@Autowired
+	MessageService messageService;
+
 	@Override
 	public <M extends AbstractModel> List<ModelDto<M>> insert(M model) throws ApplicationServiceException {
 		if (databaseService.select(model).isEmpty()) {
@@ -29,6 +32,7 @@ public class StationServiceImpl extends BaseServiceImpl implements StationServic
 			for (ModelDto m : models) {
 				LOGGER.warn(m.toString());
 			}
+			messageService.send("The station is already existed in database.");
 			throwException("insert", "The station is already existed in database.");
 		}
 		return null;

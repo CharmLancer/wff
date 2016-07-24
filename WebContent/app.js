@@ -84,3 +84,9 @@ sap.ui.view({
 	viewName : "view.application",
 	type : sap.ui.core.mvc.ViewType.JS
 }).placeAt("content");
+
+// sap.ui.view({
+// id : "map",
+// viewName : "view.map",
+// type : sap.ui.core.mvc.ViewType.JS
+// }).placeAt("homemap");

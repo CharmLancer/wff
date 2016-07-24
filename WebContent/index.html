@@ -1,28 +1,30 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		 		
-		<script id='sap-ui-bootstrap' type='text/javascript'
-			src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'
-			data-sap-ui-theme='sap_bluecrystal'
-			data-sap-ui-libs='sap.m, sap.ui.commons'>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv='Content-Type' content='text/html;charset=UTF-8' />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<script src="util/sockjs.js"></script>
+<script src="util/stomp.js"></script>
+<script id='sap-ui-bootstrap' type='text/javascript'
+	src='https://openui5.hana.ondemand.com/resources/sap-ui-core.js'
+	data-sap-ui-theme='sap_bluecrystal'
+	data-sap-ui-libs='sap.m, sap.ui.commons'>
               
 		</script>
-		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
-	</head>
-	<body class="sapUiBody" >
-		<div id="home">
-		<div id='content'>		</div>
-		 <div id='homemap'></div>
-		
-		 <hr/>
-    	<div id='sliders'></div>
-		</div>
-		
-	</body>
+<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+</head>
+<body class="sapUiBody">
+
+	<div id='content'></div>
+	<div id="home">
+		<div id='homemap'></div>
+		<hr />
+		<div id='sliders'></div>
+	</div>
+
+</body>
 </html>
 <script>
 sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
@@ -40,10 +42,24 @@ openui5.googlemaps.ScriptsUtil
 		.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
 		
 jQuery.sap.require('openui5.googlemaps.MapUtils');
-
-
+		var socket = new SockJS('/wff/topic');
+		var stompClient = null;
+		stompClient= Stomp.over(socket);
+		stompClient.connect({}, function(frame){
+			console.log('Connected: ' + frame);
+			stompClient.subscribe('/topic/station', function(payload){
+				var body=JSON.parse(payload.body);
+				console.log(body.message);
+				var oDialog1 = new sap.ui.commons.Dialog();
+				oDialog1.setTitle("My first Dialog");	
+				var oText = new sap.ui.commons.TextView({text: body.message});
+				oDialog1.addContent(oText);
+				oDialog1.addButton(new sap.ui.commons.Button({text: "OK", press:function(){oDialog1.close();}}));
+				oDialog1.open();
+			});
+		});
+		
 </script>
 <script type="text/javascript" src="app.js">
 
-</script>  
- 
+</script>

@@ -14,6 +14,7 @@ import com.wff.dto.ModelDto;
 import com.wff.exception.ApplicationServiceException;
 import com.wff.exception.DatabaseFieldValueException;
 import com.wff.site.model.User;
+import com.wff.site.services.MessageService;
 import com.wff.site.services.UserService;
 
 @Controller
@@ -21,6 +22,9 @@ import com.wff.site.services.UserService;
 public class UserController {
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	MessageService messageService;
 
 	@ResponseBody
 	@RequestMapping("/hello")
@@ -32,7 +36,9 @@ public class UserController {
 	@RequestMapping(value = "/login", params = { "name", "password" })
 	public String login(@RequestParam("name") String userName, @RequestParam("password") String userPassword)
 			throws DatabaseFieldValueException {
-		return Boolean.toString(userService.checkUser(userName, userPassword));
+		boolean valid = userService.checkUser(userName, userPassword);
+		messageService.send("User is " + (valid ? " valid " : " not valid"));
+		return Boolean.toString(valid);
 	}
 
 	@ResponseBody
