@@ -26,40 +26,4 @@
 
 </body>
 </html>
-<script>
-sap.ui.getCore().loadLibrary("openui5.googlemaps", "openui5/googlemaps/");
-
-var params = {
-	    url: 'https://maps.googleapis.com/maps/api/js',
-	    sensor: false,
-	    v: '3.exp'
-	        // libraries : 'places'
-	};
-
-openui5.googlemaps.ScriptsUtil.setParams(params);
-	
-openui5.googlemaps.ScriptsUtil
-		.setApiKey('AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM');
-		
-jQuery.sap.require('openui5.googlemaps.MapUtils');
-		var socket = new SockJS('/wff/topic');
-		var stompClient = null;
-		stompClient= Stomp.over(socket);
-		stompClient.connect({}, function(frame){
-			console.log('Connected: ' + frame);
-			stompClient.subscribe('/topic/station', function(payload){
-				var body=JSON.parse(payload.body);
-				console.log(body.message);
-				var oDialog1 = new sap.ui.commons.Dialog();
-				oDialog1.setTitle("My first Dialog");	
-				var oText = new sap.ui.commons.TextView({text: body.message});
-				oDialog1.addContent(oText);
-				oDialog1.addButton(new sap.ui.commons.Button({text: "OK", press:function(){oDialog1.close();}}));
-				oDialog1.open();
-			});
-		});
-		
-</script>
-<script type="text/javascript" src="app.js">
-
-</script>
+ 
